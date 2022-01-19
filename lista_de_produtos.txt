@@ -1,0 +1,35 @@
++1 Half plate	                            Armor	    Gamechanging  	Rare	      45 gp
+	-You have a +1 bonus to AC while wearing this armor.
+	https://media-waterdeep.cursecdn.com/attachments/2/666/armor.jpg
+	
+Giant Slayer Handaxe	                    Weapon	  Combat	        Rare	      140 gp
+	-You gain a +1 bonus to attack and damage rolls made with this magic weapon.
+	When you hit a giant with it, the giant takes an extra 2d6 damage of the weapon's type and must succeed on a DC 15 Strength saving throw or fall prone. For the purpose of this weapon, "giant" refers to any creature with the giant type, including ettins and trolls.
+	https://www.dndbeyond.com/avatars/thumbnails/7/231/1000/1000/636284736285144879.jpeg
+
+Potion of Healing	                        Potion	  Consumables	    Common	    1 gp
+	-You regain hit points when you drink this potion. The number of hit points depends on the potion’s rarity, as shown in the Potions of Healing table. Whatever its potency, the potion’s red liquid glimmers when agitated.
+	https://media-waterdeep.cursecdn.com/attachments/2/667/potion.jpg
+
+Rod of Security	                          Rod	      Gamechanging	  Very Rare	  1800 gp
+	-While holding this rod, you can use an action to activate it. The rod then instantly transports you and up to 199 other willing creatures you can see to a paradise that exists in an extraplanar space. You choose the form that the paradise takes. It could be a tranquil garden, lovely glade, cheery tavern, immense palace, tropical island, fantastic carnival, or whatever else you can imagine.
+	https://media-waterdeep.cursecdn.com/attachments/2/669/rod.jpg
+
+Scroll of Lesser Restoration	            Scroll	  Consumables	    Uncommon	  4 gp
+	-You touch a creature and can end either one disease or one condition afflicting it. The condition can be blinded, deafened, paralyzed, or poisoned.
+	https://media-waterdeep.cursecdn.com/attachments/2/707/abjuration.png
+
+Talisman of Ultimate Evil	                Wondrous	Consumables	    Legendary	  1230 gp
+	-This item symbolizes unrepentant evil. A creature that is neither good nor evil in alignment takes 6d6 necrotic damage upon touching the talisman. A good creature takes 8d6 necrotic damage upon touching the talisman. Either sort of creature takes the damage again each time it ends its turn holding or carrying the talisman.
+	https://www.dndbeyond.com/avatars/thumbnails/7/444/1000/1000/636284775126444275.jpeg
+
+Vicious Battleaxe	                        Weapon	  Combat	        Rare	      7 gp
+	-When you roll a 20 on your attack roll with this magic weapon, the target takes an extra 7 damage of the weapon’s type.
+	https://www.dndbeyond.com/avatars/thumbnails/7/460/1000/1000/636284780329420913.jpeg
+
+Wand of Magic Missiles	                  Wand	    Combat	        Uncommon	  160 gp
+	-This wand has 7 charges. While holding it, you can use an action to expend 1 or more of its charges to cast the magic missile spell from it. For 1 charge, you cast the 1st-level version of the spell. You can increase the spell slot level by one for each additional charge you expend.
+	https://www.dndbeyond.com/avatars/thumbnails/7/476/1000/1000/636284783144510537.jpeg
+
+
+https://5emagic.shop/inventory

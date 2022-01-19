@@ -1,0 +1,48 @@
+NOTA: 	Nos shopping carts é preciso ter em atenção no código para ter a 
+		certeza que estamos a trabalhar com o carrinho atual e não os antigos.
+		(talvez o carrinho com o id mais alto dos do user_id correspondente)
+
+ROUTE: heroshop.com/api/
+
+GET all products:
+"products"
+
+GET 1 product:
+"products/{productId}"
+
+Get 1 user:
+"users/{userId}"
+
+GET shopping cart:
+"users/{userId}/shoppingcart"
+
+//GET products in shopping cart:
+//"users/{userId}/shoppingcart/products"
+
+POST new product:
+"products"
+
+POST new user:
+"users"
+
+POST new shopping cart:          //Apenas no inicio ou depois de se pagar o anterior
+"users/{userId}/shoppingcart"
+
+POST new product in shopping cart:
+"users/{userId}/shoppingcart/products"
+
+POST payment details and shopping cart:
+"users/{userId}/shoppingcart/paymentdetails"
+
+PATCH user details changes:
+"users/{userId}"
+
+PATCH product details:
+"products/{productId}"
+
+DELETE product:
+"products/{productId}"
+
+DELETE product in shopping cart:
+"users/{userId}/shoppingcart/{productId}"
+

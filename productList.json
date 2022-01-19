@@ -1,0 +1,82 @@
+[
+  {
+    "name": "+1 Half plate",
+    "type": "Armor",
+    "rarity": "Rare",
+    "description": "You have a +1 bonus to AC while wearing this armor.",
+    "price": "45",
+    "imgLink": "https://media-waterdeep.cursecdn.com/attachments/2/666/armor.jpg"
+  },
+  {
+    "name": "Giant Slayer Handaxe",
+    "type": "Weapon",
+    "rarity": "Rare",
+    "description": "You gain a +1 bonus to attack and damage rolls made with this magic weapon. When you hit a giant with it, the giant takes an extra 2d6 damage of the weapon's type and must succeed on a DC 15 Strength saving throw or fall prone. For the purpose of this weapon, \"giant\" refers to any creature with the giant type, including ettins and trolls.",
+    "price": "140",
+    "imgLink": "https://www.dndbeyond.com/avatars/thumbnails/7/231/1000/1000/636284736285144879.jpeg"
+  },
+  {
+    "name": "Potion of Healing",
+    "type": "Potion",
+    "rarity": "Common",
+    "description": "You regain hit points when you drink this potion. The number of hit points depends on the potion’s rarity, as shown in the Potions of Healing table. Whatever its potency, the potion’s red liquid glimmers when agitated.",
+    "price": "1",
+    "imgLink": "https://media-waterdeep.cursecdn.com/attachments/2/667/potion.jpg"
+  },
+  {
+    "name": "Rod of Security",
+    "type": "Rod",
+    "rarity": "Very Rare",
+    "description": "While holding this rod, you can use an action to activate it. The rod then instantly transports you and up to 199 other willing creatures you can see to a paradise that exists in an extraplanar space. You choose the form that the paradise takes. It could be a tranquil garden, lovely glade, cheery tavern, immense palace, tropical island, fantastic carnival, or whatever else you can imagine.",
+    "price": "1800",
+    "imgLink": "https://media-waterdeep.cursecdn.com/attachments/2/669/rod.jpg"
+  },
+  {
+    "name": "Scroll of Lesser Restoration",
+    "type": "Scroll",
+    "rarity": "Uncommon",
+    "description": "You touch a creature and can end either one disease or one condition afflicting it. The condition can be blinded, deafened, paralyzed, or poisoned.",
+    "price": "4",
+    "imgLink": "https://media-waterdeep.cursecdn.com/attachments/2/707/abjuration.png"
+  },
+  {
+    "name": "Talisman of Ultimate Evil",
+    "type": "Wondrous",
+    "rarity": "Legendary",
+    "description": "This item symbolizes unrepentant evil. A creature that is neither good nor evil in alignment takes 6d6 necrotic damage upon touching the talisman. A good creature takes 8d6 necrotic damage upon touching the talisman. Either sort of creature takes the damage again each time it ends its turn holding or carrying the talisman.",
+    "price": "1230",
+    "imgLink": "https://www.dndbeyond.com/avatars/thumbnails/7/444/1000/1000/636284775126444275.jpeg"
+  },
+  {
+    "name": "Vicious Battleaxe",
+    "type": "Weapon",
+    "rarity": "Rare",
+    "description": "When you roll a 20 on your attack roll with this magic weapon, the target takes an extra 7 damage of the weapon’s type.",
+    "price": "7",
+    "imgLink": "https://www.dndbeyond.com/avatars/thumbnails/7/460/1000/1000/636284780329420913.jpeg"
+  },
+  {
+    "name": "Wand of Magic Missiles",
+    "type": "Wand",
+    "rarity": "Uncommon",
+    "description": "This wand has 7 charges. While holding it, you can use an action to expend 1 or more of its charges to cast the magic missile spell from it. For 1 charge, you cast the 1st-level version of the spell. You can increase the spell slot level by one for each additional charge you expend.",
+    "price": "160",
+    "imgLink": "https://www.dndbeyond.com/avatars/thumbnails/7/476/1000/1000/636284783144510537.jpeg"
+  },
+  {
+    "name": "Vorpal Sword",
+    "type": "Weapon",
+    "rarity": "Legendary",
+    "description": "You gain a +3 bonus to attack and damage rolls made with this magic weapon. In addition, the weapon ignores resistance to slashing damage. When you attack a creature that has at least one head with this weapon and roll a 20 on the attack roll, you cut off one of the creature's heads. The creature dies if it can't survive without the lost head. A creature is immune to this effect if it is immune to slashing damage, doesn't have or need a head, has legendary actions, or the GM decides that the creature is too big for its head to be cut off with this weapon. Such a creature instead takes an extra 6d8 slashing damage from the hit.",
+    "price": "2410",
+    "imgLink": "https://www.dndbeyond.com/avatars/thumbnails/7/462/1000/1000/636284780691337497.jpeg"
+  },
+  {
+    "name": "Horn of Valhalla",
+    "type": "Woundrous",
+    "rarity": "Rare",
+    "description": "You can use an action to blow this horn. In response, warrior spirits from the Valhalla appear within 60 feet of you. They use the statistics of a berserker. They return to Valhalla after 1 hour or when they drop to 0 hit points. Once you use the horn, it can't be used again until 7 days have passed. Four types of horn of Valhalla are known to exist, each made of a different metal. The horn's type determines how many berserkers answer its summons, as well as the requirement for its use. The GM chooses the horn's type or determines it randomly.",
+    "price": "336",
+    "imgLink": "https://www.dndbeyond.com/avatars/thumbnails/7/259/1000/1000/636284740704653038.jpeg"
+  }
+]

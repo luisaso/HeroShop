@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroShop.API", "HeroShop.API.csproj", "{DBFAECB2-B331-4ACE-8020-F7B46A8049C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBFAECB2-B331-4ACE-8020-F7B46A8049C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBFAECB2-B331-4ACE-8020-F7B46A8049C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBFAECB2-B331-4ACE-8020-F7B46A8049C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBFAECB2-B331-4ACE-8020-F7B46A8049C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94BBABF2-6904-4493-81B3-744D1AAF7C4B}
+	EndGlobalSection
+EndGlobal
