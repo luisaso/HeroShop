@@ -16,19 +16,28 @@ namespace HeroShop.API.Controllers
             _context = context;
         }
 
-        // GET: api/ShoppingCart
+        // GET: api/Users/4/ShoppingCart
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ShoppingCart>>> GetShoppingCarts(int userId)
+        public async Task<ActionResult<ShoppingCart>> GetShoppingCarts(int userId)
         {
-            //return ActiveShoppingCart(userId);
-            return null;
+            if (!UserExists(userId))
+            {
+                return NotFound();
+            }
+
+            return ActiveShoppingCart(userId);
         }
 
-        // GET: api/ShoppingCarts/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ShoppingCart>> GetShoppingCart(int id)
+        // GET: api/Users/4/ShoppingCart/5
+        [HttpGet("{cartId}")]
+        public async Task<ActionResult<ShoppingCart>> GetShoppingCart(int cartId, int userId)
         {
-            var shoppingCart = await _context.ShoppingCarts.FindAsync(id);
+            if (!UserExists(userId))
+            {
+                return NotFound();
+            }
+
+            var shoppingCart = await _context.ShoppingCarts.FindAsync(cartId);
 
             if (shoppingCart == null)
             {
@@ -38,12 +47,11 @@ namespace HeroShop.API.Controllers
             return shoppingCart;
         }
 
-        // PUT: api/ShoppingCarts/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutShoppingCart(int id, ShoppingCart shoppingCart)
+        // PUT: api/Users/4/ShoppingCart/5
+        [HttpPut("{cartId}")]
+        public async Task<IActionResult> PutShoppingCart(int cartId, ShoppingCart shoppingCart, int userId)
         {
-            if (id != shoppingCart.ShoppingCartId)
+            if (cartId != shoppingCart.ShoppingCartId)
             {
                 return BadRequest();
             }
@@ -56,7 +64,7 @@ namespace HeroShop.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ShoppingCartExists(id))
+                if (!ShoppingCartExists(cartId))
                 {
                     return NotFound();
                 }
@@ -69,23 +77,30 @@ namespace HeroShop.API.Controllers
             return NoContent();
         }
 
-        // POST: api/ShoppingCarts
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Users/4/ShoppingCart
         [HttpPost]
-        public async Task<ActionResult<ShoppingCart>> PostShoppingCart(ShoppingCart shoppingCart)
+        public async Task<ActionResult<ShoppingCart>> PostShoppingCart(ShoppingCart shoppingCart, int userId)
         {
+            if (!UserExists(userId))
+            {
+                return NotFound();
+            }
+
             _context.ShoppingCarts.Add(shoppingCart);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetShoppingCart", new { id = shoppingCart.ShoppingCartId }, shoppingCart);
+            return CreatedAtAction("GetShoppingCart", new { id = shoppingCart.ShoppingCartId, userId }, shoppingCart);
         }
 
-        // DELETE: api/ShoppingCarts/5
+        // DELETE: api/Users/4/ShoppingCart/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteShoppingCart(int id)
+        public async Task<IActionResult> DeleteShoppingCart(int cartId, int userId)
         {
-            var shoppingCart = await _context.ShoppingCarts.FindAsync(id);
+            var shoppingCart = await _context.ShoppingCarts.FindAsync(cartId);
             if (shoppingCart == null)
+            {
+                return NotFound();
+            }
+            if (!UserExists(userId))
             {
                 return NotFound();
             }
@@ -101,12 +116,20 @@ namespace HeroShop.API.Controllers
             return _context.ShoppingCarts.Any(e => e.ShoppingCartId == id);
         }
 
+        private bool UserExists(int id)
+        {
+            return _context.Users.Any(e => e.UserId == id);
+        }
+
         private ShoppingCart ActiveShoppingCart(int userId)
         {
-            //var userShoppingCarts = _context.ShoppingCarts.Where(cart => cart.UserId == userId).ToList();
+            List<ShoppingCart> userShoppingCarts = _context.ShoppingCarts.Where(cart => cart.UserId == userId).ToList();
 
-            //ShoppingCart activeShoppingCart = userShoppingCarts;
-            return null;
+            int activeShoppingCartId = userShoppingCarts.Max(cart => cart.ShoppingCartId);
+
+            ShoppingCart activeShoppingCart = userShoppingCarts.Where(cart => cart.ShoppingCartId == activeShoppingCartId).FirstOrDefault();
+
+            return activeShoppingCart;
         }
     }
 }

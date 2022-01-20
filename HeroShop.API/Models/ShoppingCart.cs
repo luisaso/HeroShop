@@ -9,9 +9,8 @@ namespace HeroShop.API.Models
         [Required]
         public int Total { get; set; }
         public DateTime? TimeBought { get; set; }
-        public virtual List<Product> Products { get; set; }
-        public virtual User User { get; set; }
-
-
+        public List<Product>? Products { get; set; }
+        public int UserId { get; set; }
     }
+
 }

@@ -12,7 +12,7 @@ namespace HeroShop.API.Models
         public string Username { get; set; }
         [Required]
         public string Password { get; set; }
-        public virtual IEnumerable<ShoppingCart> ShoppingCarts { get; set; }
+        public string? Email { get; set; }
         public string? Name { get; set; }
         public string? Gender { get; set; }
         public string? Race { get; set; }
