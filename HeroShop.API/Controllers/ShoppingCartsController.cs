@@ -88,7 +88,7 @@ namespace HeroShop.API.Controllers
 
             _context.ShoppingCarts.Add(shoppingCart);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetShoppingCart", new { id = shoppingCart.ShoppingCartId, userId }, shoppingCart);
+            return CreatedAtAction("GetShoppingCart", new { cartId = shoppingCart.ShoppingCartId, userId = userId }, shoppingCart);
         }
 
         // DELETE: api/Users/4/ShoppingCart/5

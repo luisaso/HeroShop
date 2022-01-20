@@ -4,43 +4,37 @@ NOTA: 	Nos shopping carts é preciso ter em atenção no código para ter a
 
 ROUTE: heroshop.com/api/
 
-GET all products:
+GET all products: [CHECK]
 "products"
 
-GET 1 product:
+GET 1 product: [CHECK]
 "products/{productId}"
 
-Get 1 user:
+Get 1 user: [CHECK]
 "users/{userId}"
 
-GET shopping cart:
+GET shopping cart: [CHECK]
 "users/{userId}/shoppingcart"
 
-//GET products in shopping cart:
-//"users/{userId}/shoppingcart/products"
-
-POST new product:
+POST new product: [CHECK]
 "products"
 
-POST new user:
+POST new user: [CHECK]
 "users"
 
-POST new shopping cart:          //Apenas no inicio ou depois de se pagar o anterior
+POST new shopping cart: [CHECK]
 "users/{userId}/shoppingcart"
 
 POST new product in shopping cart:
 "users/{userId}/shoppingcart/products"
 
-POST payment details and shopping cart:
-"users/{userId}/shoppingcart/paymentdetails"
-
-PATCH user details changes:
+PATCH user details changes: [CHECK]
 "users/{userId}"
 
-PATCH product details:
+PATCH product details: [CHECK]
 "products/{productId}"
 
-DELETE product:
+DELETE product: [CHECK]
 "products/{productId}"
 
 DELETE product in shopping cart:
