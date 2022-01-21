@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HeroShop.API.Migrations
 {
     [DbContext(typeof(HeroShopContext))]
-    [Migration("20220120165325_fix-issues")]
-    partial class fixissues
+    [Migration("20220121164139_finally")]
+    partial class @finally
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,21 @@ namespace HeroShop.API.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("HeroShop.API.Models.ProductShoppingCart", b =>
+                {
+                    b.Property<int>("ProductsProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("shoppingCartsShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductsProductId", "shoppingCartsShoppingCartId");
+
+                    b.HasIndex("shoppingCartsShoppingCartId");
+
+                    b.ToTable("ProductShoppingCarts");
                 });
 
             modelBuilder.Entity("HeroShop.API.Models.ShoppingCart", b =>
@@ -118,34 +133,23 @@ namespace HeroShop.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProductShoppingCart", b =>
+            modelBuilder.Entity("HeroShop.API.Models.ProductShoppingCart", b =>
                 {
-                    b.Property<int>("ProductsProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("shoppingCartsShoppingCartId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductsProductId", "shoppingCartsShoppingCartId");
-
-                    b.HasIndex("shoppingCartsShoppingCartId");
-
-                    b.ToTable("ProductShoppingCart");
-                });
-
-            modelBuilder.Entity("ProductShoppingCart", b =>
-                {
-                    b.HasOne("HeroShop.API.Models.Product", null)
+                    b.HasOne("HeroShop.API.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductsProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HeroShop.API.Models.ShoppingCart", null)
+                    b.HasOne("HeroShop.API.Models.ShoppingCart", "ShoppingCart")
                         .WithMany()
                         .HasForeignKey("shoppingCartsShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ShoppingCart");
                 });
 #pragma warning restore 612, 618
         }

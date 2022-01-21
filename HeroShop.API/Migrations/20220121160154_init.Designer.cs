@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HeroShop.API.Migrations
 {
     [DbContext(typeof(HeroShopContext))]
-    [Migration("20220120164233_init")]
+    [Migration("20220121160154_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,8 +79,6 @@ namespace HeroShop.API.Migrations
 
                     b.HasKey("ShoppingCartId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("ShoppingCarts");
                 });
 
@@ -133,17 +131,6 @@ namespace HeroShop.API.Migrations
                     b.HasIndex("shoppingCartsShoppingCartId");
 
                     b.ToTable("ProductShoppingCart");
-                });
-
-            modelBuilder.Entity("HeroShop.API.Models.ShoppingCart", b =>
-                {
-                    b.HasOne("HeroShop.API.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProductShoppingCart", b =>

@@ -25,7 +25,7 @@ POST new user: [CHECK]
 POST new shopping cart: [CHECK]
 "users/{userId}/shoppingcart"
 
-POST new product in shopping cart:
+POST new product in shopping cart: [CHECK]
 "users/{userId}/shoppingcart/products"
 
 PATCH user details changes: [CHECK]
@@ -37,6 +37,6 @@ PATCH product details: [CHECK]
 DELETE product: [CHECK]
 "products/{productId}"
 
-DELETE product in shopping cart:
+DELETE product in shopping cart: [CHECK]
 "users/{userId}/shoppingcart/{productId}"
 

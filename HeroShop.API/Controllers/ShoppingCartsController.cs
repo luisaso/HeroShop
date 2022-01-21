@@ -47,16 +47,30 @@ namespace HeroShop.API.Controllers
             return shoppingCart;
         }
 
-        // PUT: api/Users/4/ShoppingCart/5
-        [HttpPut("{cartId}")]
-        public async Task<IActionResult> PutShoppingCart(int cartId, ShoppingCart shoppingCart, int userId)
+        // PATCH: api/Users/4/ShoppingCart/5
+        [HttpPatch("{cartId}")]
+        public async Task<IActionResult> PatchShoppingCart(int cartId, int userId, int productId)
         {
-            if (cartId != shoppingCart.ShoppingCartId)
+            if (!UserExists(userId))
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(shoppingCart).State = EntityState.Modified;
+            if (!ShoppingCartExists(cartId))
+            {
+                return NotFound();
+            }
+
+            if (!ProductExists(productId))
+            {
+                return NotFound();
+            }
+
+            ShoppingCart newShoppingCart = _context.ShoppingCarts.Find(cartId);
+            Product product = _context.Products.Find(productId);
+            newShoppingCart.Products.Add(product);
+
+            _context.Entry(newShoppingCart).State = EntityState.Modified;
 
             try
             {
@@ -91,6 +105,62 @@ namespace HeroShop.API.Controllers
             return CreatedAtAction("GetShoppingCart", new { cartId = shoppingCart.ShoppingCartId, userId = userId }, shoppingCart);
         }
 
+        // POST: api/Users/4/ShoppingCart/Products
+        [HttpPost("Products")]
+        public async Task<ActionResult<ShoppingCart>> PostShoppingCartProduct(int cartId, int userId, int productId)
+        {
+            if (!UserExists(userId))
+            {
+                return NotFound();
+            }
+
+            if (!ShoppingCartExists(cartId))
+            {
+                return NotFound();
+            }
+
+            if (!ProductExists(productId))
+            {
+                return NotFound();
+            }
+
+            ProductShoppingCart productShoppingCart = new ProductShoppingCart() { ProductsProductId = productId, shoppingCartsShoppingCartId = cartId };
+
+            _context.ProductShoppingCarts.Add(productShoppingCart);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/Users/4/ShoppingCart/Products
+        [HttpDelete("Products/{productId}")]
+        public async Task<ActionResult<ShoppingCart>> DeleteShoppingCartProduct(int cartId, int userId, int productId)
+        {
+            if (!UserExists(userId))
+            {
+                return NotFound();
+            }
+
+            if (!ShoppingCartExists(cartId))
+            {
+                return NotFound();
+            }
+
+            if (!ProductExists(productId))
+            {
+                return NotFound();
+            }
+
+            ProductShoppingCart productShoppingCart = new ProductShoppingCart() { ProductsProductId = productId, shoppingCartsShoppingCartId = cartId };
+
+            _context.ProductShoppingCarts.Remove(productShoppingCart);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         // DELETE: api/Users/4/ShoppingCart/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteShoppingCart(int cartId, int userId)
@@ -121,9 +191,14 @@ namespace HeroShop.API.Controllers
             return _context.Users.Any(e => e.UserId == id);
         }
 
+        private bool ProductExists(int id)
+        {
+            return _context.Products.Any(e => e.ProductId == id);
+        }
+
         private ShoppingCart ActiveShoppingCart(int userId)
         {
-            List<ShoppingCart> userShoppingCarts = _context.ShoppingCarts.Where(cart => cart.UserId == userId).ToList();
+            List<ShoppingCart> userShoppingCarts = _context.ShoppingCarts.Where(cart => cart.UserId == userId).Include(x => x.Products).ToList();
 
             int activeShoppingCartId = userShoppingCarts.Max(cart => cart.ShoppingCartId);
 
