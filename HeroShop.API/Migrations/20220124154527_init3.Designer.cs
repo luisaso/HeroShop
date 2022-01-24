@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HeroShop.API.Migrations
 {
     [DbContext(typeof(HeroShopContext))]
-    [Migration("20220121160154_init")]
-    partial class init
+    [Migration("20220124154527_init3")]
+    partial class init3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,6 +60,32 @@ namespace HeroShop.API.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("HeroShop.API.Models.ProductShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("ProductShoppingCarts");
+                });
+
             modelBuilder.Entity("HeroShop.API.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("ShoppingCartId")
@@ -68,8 +94,11 @@ namespace HeroShop.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShoppingCartId"), 1L, 1);
 
-                    b.Property<DateTime?>("TimeBought")
+                    b.Property<DateTime?>("OrderPlaced")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Total")
                         .HasColumnType("int");
@@ -78,6 +107,8 @@ namespace HeroShop.API.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ShoppingCartId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -118,34 +149,38 @@ namespace HeroShop.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProductShoppingCart", b =>
+            modelBuilder.Entity("HeroShop.API.Models.ProductShoppingCart", b =>
                 {
-                    b.Property<int>("ProductsProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("shoppingCartsShoppingCartId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductsProductId", "shoppingCartsShoppingCartId");
-
-                    b.HasIndex("shoppingCartsShoppingCartId");
-
-                    b.ToTable("ProductShoppingCart");
-                });
-
-            modelBuilder.Entity("ProductShoppingCart", b =>
-                {
-                    b.HasOne("HeroShop.API.Models.Product", null)
+                    b.HasOne("HeroShop.API.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductsProductId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HeroShop.API.Models.ShoppingCart", null)
-                        .WithMany()
-                        .HasForeignKey("shoppingCartsShoppingCartId")
+                        .WithMany("ProductsShoppingCart")
+                        .HasForeignKey("ShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("HeroShop.API.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("HeroShop.API.Models.Product", null)
+                        .WithMany("shoppingCarts")
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("HeroShop.API.Models.Product", b =>
+                {
+                    b.Navigation("shoppingCarts");
+                });
+
+            modelBuilder.Entity("HeroShop.API.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("ProductsShoppingCart");
                 });
 #pragma warning restore 612, 618
         }

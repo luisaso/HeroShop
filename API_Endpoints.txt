@@ -40,3 +40,22 @@ DELETE product: [CHECK]
 DELETE product in shopping cart: [CHECK]
 "users/{userId}/shoppingcart/{productId}"
 
+
+
+
+SHOPPING CART
+GET:
+active shopping cart---
+todos os produtos num shopping cart---
+1 produto num shopping cart---???
+
+POST:
+criar um shopping cart---
+adicionar um produto a um shopping cart---
+
+PATCH:
+mudar as propriedades do shopping cart---
+mudar as propriedades de um produto num shopping cart---
+
+DELETE:
+apagar um produto do shopping cart

@@ -8,9 +8,11 @@ namespace HeroShop.API.Models
         public int ShoppingCartId { get; set; }
         [Required]
         public int Total { get; set; }
-        public DateTime? TimeBought { get; set; }
-        public List<Product>? Products { get; set; }
+        [Required]
         public int UserId { get; set; }
+        public DateTime? OrderPlaced { get; set; }
+        public List<ProductShoppingCart>? ProductsShoppingCart { get; set; }
+
     }
 
 }

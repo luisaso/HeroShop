@@ -4,6 +4,7 @@ using HeroShop.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HeroShop.API.Migrations
 {
     [DbContext(typeof(HeroShopContext))]
-    partial class HeroShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220124154201_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,6 +97,9 @@ namespace HeroShop.API.Migrations
                     b.Property<DateTime?>("OrderPlaced")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Total")
                         .HasColumnType("int");
 
@@ -102,6 +107,8 @@ namespace HeroShop.API.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ShoppingCartId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -157,6 +164,18 @@ namespace HeroShop.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("HeroShop.API.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("HeroShop.API.Models.Product", null)
+                        .WithMany("shoppingCarts")
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("HeroShop.API.Models.Product", b =>
+                {
+                    b.Navigation("shoppingCarts");
                 });
 
             modelBuilder.Entity("HeroShop.API.Models.ShoppingCart", b =>

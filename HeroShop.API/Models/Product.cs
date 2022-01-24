@@ -18,6 +18,5 @@ namespace HeroShop.API.Models
         public string Description { get; set; }
         [Required]
         public string ImgLink { get; set; }
-        public List<ShoppingCart>? shoppingCarts { get; set; }
     }
 }
