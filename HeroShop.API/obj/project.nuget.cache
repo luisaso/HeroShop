@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7KaANKExw+vGf/wwCPEtynVe5LjopmI24WUSjLuLTHmJbOCky+RXn5iDnM6IHZ+oLpk6lAO/7wH0h0VZ22XrMg==",
+  "dgSpecHash": "2bkAtFfxtmYNc3fUhpoPY94T8rwAnxwdsiSTXMFSDDGGofnM+tT5Hocl3MeFY9l9Lh0erBuwWbpxfu08mLr1Qw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lcspa\\Desktop\\Projeto FullStack\\HeroShop\\HeroShop.API\\HeroShop.API.csproj",
+  "projectFilePath": "C:\\Users\\lcspa\\Desktop\\Curso IPN\\FullStack\\HeroShop\\HeroShop.API\\HeroShop.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lcspa\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\lcspa\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

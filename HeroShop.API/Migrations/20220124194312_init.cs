@@ -28,6 +28,21 @@ namespace HeroShop.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ShoppingCarts",
+                columns: table => new
+                {
+                    ShoppingCartId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Total = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    OrderPlaced = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCarts", x => x.ShoppingCartId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -47,39 +62,18 @@ namespace HeroShop.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShoppingCarts",
-                columns: table => new
-                {
-                    ShoppingCartId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Total = table.Column<int>(type: "int", nullable: false),
-                    OrderPlaced = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShoppingCarts", x => x.ShoppingCartId);
-                    table.ForeignKey(
-                        name: "FK_ShoppingCarts_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductShoppingCarts",
                 columns: table => new
                 {
-                    ProductsProductId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
-                    ShoppingCartId = table.Column<int>(type: "int", nullable: true)
+                    ShoppingCartId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductShoppingCarts", x => x.ProductsProductId);
+                    table.PrimaryKey("PK_ProductShoppingCarts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProductShoppingCarts_Products_ProductId",
                         column: x => x.ProductId,
@@ -90,7 +84,8 @@ namespace HeroShop.API.Migrations
                         name: "FK_ProductShoppingCarts_ShoppingCarts_ShoppingCartId",
                         column: x => x.ShoppingCartId,
                         principalTable: "ShoppingCarts",
-                        principalColumn: "ShoppingCartId");
+                        principalColumn: "ShoppingCartId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -102,11 +97,6 @@ namespace HeroShop.API.Migrations
                 name: "IX_ProductShoppingCarts_ShoppingCartId",
                 table: "ProductShoppingCarts",
                 column: "ShoppingCartId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCarts_ProductId",
-                table: "ShoppingCarts",
-                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -118,10 +108,10 @@ namespace HeroShop.API.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCarts");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "ShoppingCarts");
         }
     }
 }

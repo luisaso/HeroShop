@@ -20,7 +20,8 @@ namespace HeroShop.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            List<User> users = await _context.Users.ToListAsync();
+            return Ok(users);
         }
 
         // GET: api/Users/5
@@ -34,7 +35,7 @@ namespace HeroShop.API.Controllers
                 return NotFound();
             }
 
-            return user;
+            return Ok(user);
         }
 
         // PUT: api/Users/5

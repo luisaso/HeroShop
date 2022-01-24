@@ -33,7 +33,7 @@ namespace HeroShop.API.Controllers
 
             ShoppingCart cart = _context.ShoppingCarts.Where(sc => sc.ShoppingCartId == cartId).FirstOrDefault();
 
-            return cart;
+            return Ok(cart);
         }
 
         // GET: api/Users/4/ShoppingCart
@@ -45,7 +45,7 @@ namespace HeroShop.API.Controllers
                 return NotFound();
             }
 
-            return ActiveShoppingCart(userId);
+            return Ok(ActiveShoppingCart(userId));
         }
 
         // GET: api/Users/4/ShoppingCart/Products
@@ -63,7 +63,7 @@ namespace HeroShop.API.Controllers
 
             //var a = JsonSerializer.Serialize(shoppingCartProducts);
 
-            return shoppingCartProducts;
+            return Ok(shoppingCartProducts);
         }
 
         // GET: api/Users/4/ShoppingCart/Products/3
@@ -84,7 +84,7 @@ namespace HeroShop.API.Controllers
 
             Product shoppingCartProducts = _context.ProductShoppingCarts.Where(psc => psc.ShoppingCartId == activeCart.ShoppingCartId).Select(x => x.Product).Where(p => p.ProductId == productId).FirstOrDefault();
 
-            return shoppingCartProducts;
+            return Ok(shoppingCartProducts);
         }
 
         /*--------POST--------------------*/
@@ -98,39 +98,40 @@ namespace HeroShop.API.Controllers
                 return NotFound();
             }
 
+
             _context.ShoppingCarts.Add(shoppingCart);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetShoppingCart", new { cartId = shoppingCart.ShoppingCartId, userId = userId }, shoppingCart);
         }
 
-        // POST: api/Users/4/ShoppingCart/Products
-        [HttpPost("Products")]
-        public async Task<ActionResult<ShoppingCart>> PostShoppingCartProduct(int userId, int productId, int amount)
-        {
-            if (!UserExists(userId))
-            {
-                return NotFound();
-            }
+        //// POST: api/Users/4/ShoppingCart/Products
+        //[HttpPost("Products")]
+        //public async Task<ActionResult<ShoppingCart>> PostShoppingCartProduct(int userId, int productId, int amount)
+        //{
+        //    if (!UserExists(userId))
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (!ProductExists(productId))
-            {
-                return NotFound();
-            }
+        //    if (!ProductExists(productId))
+        //    {
+        //        return NotFound();
+        //    }
 
-            ShoppingCart activeCart = ActiveShoppingCart(userId);
+        //    ShoppingCart activeCart = ActiveShoppingCart(userId);
 
-            Product product = _context.Products.Where(p => p.ProductId == productId).FirstOrDefault();
+        //    Product product = _context.Products.Where(p => p.ProductId == productId).FirstOrDefault();
 
-            ProductShoppingCart productShoppingCart = new ProductShoppingCart() { Product = product, ShoppingCartId = activeCart.ShoppingCartId, Amount = amount };
+        //    ProductShoppingCart productShoppingCart = new ProductShoppingCart() { Product = product, ShoppingCartId = activeCart.ShoppingCartId, Amount = amount };
 
-            _context.ProductShoppingCarts.Add(productShoppingCart);
+        //    _context.ProductShoppingCarts.Add(productShoppingCart);
 
-            activeCart.Total += amount * product.Price;
+        //    activeCart.Total += amount * product.Price;
 
-            await _context.SaveChangesAsync();
+        //    await _context.SaveChangesAsync();
 
-            return NoContent(); //adicionar a resposta com o produto adicionado?
-        }
+        //    return CreatedAtAction("GetProduct", "ProductsController", new { id = productId }, product);
+        //}
 
         /*--------PATCH--------------------*/
 
@@ -190,8 +191,17 @@ namespace HeroShop.API.Controllers
 
             if (productInShopCart == null)
             {
+                Product product = _context.Products.Where(p => p.ProductId == productId).FirstOrDefault();
 
-                await PostShoppingCartProduct(userId, productId, amount);
+                ProductShoppingCart productShoppingCart = new ProductShoppingCart() { Product = product, ShoppingCartId = activeCart.ShoppingCartId, Amount = amount };
+
+                _context.ProductShoppingCarts.Add(productShoppingCart);
+
+                activeCart.Total += amount * product.Price;
+
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetProduct", "Products", new { id = productId }, product);
 
             }
             else
@@ -221,12 +231,13 @@ namespace HeroShop.API.Controllers
                         throw;
                     }
                 }
+
+                return NoContent();
             }
-            return NoContent();
 
         }
 
-
+        /*-------------DELETE--------------------------*/
 
         // DELETE: api/Users/4/ShoppingCart/Products/3
         [HttpDelete("Products/{productId}")]
