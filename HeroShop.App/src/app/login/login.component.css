@@ -1,0 +1,10 @@
+body {
+  text-align: center;
+  align-items: center;
+  width: 70%;
+  padding: 20px;
+}
+
+input {
+  width: 50px;
+}

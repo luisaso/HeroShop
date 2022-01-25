@@ -9,6 +9,12 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ManageProductComponent } from './admin-profile/manage-product/manage-product.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +25,61 @@ import { ManageProductComponent } from './admin-profile/manage-product/manage-pr
     UserProfileComponent,
     AdminProfileComponent,
     ShoppingCartComponent,
-    ManageProductComponent
+    ManageProductComponent,
+    PageNotFoundComponent,
+    WelcomeComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot([
+      {
+        path: 'products',
+        component: ProductListComponent,
+      },
+      {
+        path: 'products/:id',
+        component: ProductDetailComponent,
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'user/:id',
+        component: UserProfileComponent,
+      },
+      {
+        path: 'user/:id/shoppingcart',
+        component: ShoppingCartComponent,
+      },
+      {
+        path: 'admin',
+        component: AdminProfileComponent,
+      },
+      {
+        path: 'admin/manageproduct',
+        component: ManageProductComponent,
+      },
+      {
+        path: 'welcome',
+        redirectTo: 'products',
+        pathMatch: 'full',
+      },
+      {
+        path: '',
+        redirectTo: 'products',
+        pathMatch: 'full',
+      },
+      {
+        path: '**',
+        component: PageNotFoundComponent,
+      },
+    ]),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

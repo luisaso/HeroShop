@@ -1,0 +1,41 @@
+.all {
+  background-image: url(../../data/background.jpg);
+  background-size: auto;
+  background-attachment: fixed;
+}
+
+.banner {
+  background-image: url("../../data/banner_hero_shop.jpg");
+  background-size: cover;
+  position: relative;
+}
+
+.shop-title {
+  padding-left: 20%;
+  color: chartreuse;
+}
+
+.btn-login {
+  position: absolute;
+  padding: 25px;
+  width: 200px;
+  left: 20px;
+  top: 10px;
+}
+
+.btn-profile {
+  position: absolute;
+  padding: 25px;
+  width: 200px;
+  left: 20px;
+  bottom: 10px;
+}
+
+.btn-shop-cart {
+  position: absolute;
+  padding: 30px;
+  width: 200px;
+  right: 20px;
+  top: 10px;
+  bottom: 10px;
+}

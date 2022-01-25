@@ -1,1 +1,31 @@
-<p>login works!</p>
+<body class="container">
+  <div class="header-login">
+    <h3>Login</h3>
+    <div class="username">
+      <div class="input-group mb-2">
+        <span class="input-group-text" id="username">Username</span>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          [(ngModel)]="username"
+        />
+      </div>
+    </div>
+
+    <div class="password">
+      <div class="input-group mb-2">
+        <span class="input-group-text" id="password">Password</span>
+        <input
+          type="text"
+          class="form-control"
+          id="password"
+          [(ngModel)]="password"
+        />
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="verifyLogin()">Login</button>
+    <button class="btn btn-primary" routerLink="/products">Back</button>
+    <button class="btn btn-primary" (click)="saveToCreate()">Create</button>
+  </div>
+</body>

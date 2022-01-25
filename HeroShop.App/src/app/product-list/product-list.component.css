@@ -1,8 +1,19 @@
 body {
-  /* background-image: url(../../data/background.jpg); */
+  align-items: center;
+  width: 70%;
+  padding: 0;
 }
 
-.banner {
-  background-image: url("../../data/banner_hero_shop.jpg");
-  background-size: cover;
+td img {
+  height: 100px;
+  width: auto;
+}
+
+.table {
+  align-self: center;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
 }

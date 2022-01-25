@@ -1,0 +1,25 @@
+<div class="all">
+  <header>
+    <div class="jumbotron py-6 text-center banner">
+      <h1 class="shop-title">My Hero Shop</h1>
+      <button class="btn btn-secondary btn-login" routerLink="/login">
+        Login
+      </button>
+      <button
+        class="btn btn-secondary btn-profile"
+        [routerLink]="isLoggedIn() ? ['/user', user.userId] : ['/login']"
+      >
+        Profile
+      </button>
+      <button
+        class="btn btn-secondary btn-shop-cart"
+        [routerLink]="
+          isLoggedIn() ? ['/user', user.userId, 'shoppingcart'] : ['/login']
+        "
+      >
+        Shopping Cart
+      </button>
+    </div>
+  </header>
+  <router-outlet></router-outlet>
+</div>

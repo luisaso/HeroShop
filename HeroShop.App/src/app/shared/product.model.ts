@@ -4,6 +4,6 @@ export class Product {
   type!: string;
   rarity!: string;
   price!: number;
-  namdescriptione!: string;
+  description!: string;
   imgLink!: string;
 }

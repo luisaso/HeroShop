@@ -24,6 +24,28 @@ namespace HeroShop.API.Controllers
             return Ok(users);
         }
 
+        // GET: api/Users --- to validation
+        [HttpGet("{username}/{password}")]
+        public async Task<ActionResult<User>> GetUserByUsername(string username, string password)
+        {
+
+            User user = _context.Users.FirstOrDefault(e => e.Username == username);
+
+            if (user == null)
+            {
+                return Ok();
+            }
+
+            if (user.Password == password)
+            {
+                return Ok(user);
+            }
+
+            return Ok();
+
+
+        }
+
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
@@ -79,9 +101,11 @@ namespace HeroShop.API.Controllers
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
+
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserId == id);
         }
+
     }
 }

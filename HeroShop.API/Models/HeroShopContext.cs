@@ -14,5 +14,12 @@ namespace HeroShop.API.Models
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<ProductShoppingCart> ProductShoppingCarts { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+        }
+
     }
 }

@@ -1,1 +1,12 @@
-<p>product-detail works!</p>
+<body class="container">
+  <div class="parent">
+    <div class="div1">
+      <h2>{{ productDetails.name }}</h2>
+    </div>
+    <div class="div2">{{ productDetails.rarity }}</div>
+    <div class="div3">{{ productDetails.type }}</div>
+    <div class="div4">{{ productDetails.description }}</div>
+    <div class="div5"><img src="{{ productDetails.imgLink }}" /></div>
+  </div>
+  <button routerLink="/products" class="btn btn-primary btn-back">Back</button>
+</body>
