@@ -16,7 +16,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   isLoggedIn(): boolean {
-    return this.user.userId != null;
+    return this.user.userId != null && this.user.userId > 0;
   }
   onLogout() {
     this.user = new User();

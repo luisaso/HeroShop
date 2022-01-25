@@ -14,10 +14,8 @@ export class DbCallsService {
 
   readonly baseURL = 'http://localhost:5287/api';
 
-  userData: User = new User();
-  productData: Product = new Product();
-  shoppingCartData: ShoppingCart = new ShoppingCart();
-  productShoppingCartData: ProductShoppingCart = new ProductShoppingCart();
+  activeUserData: User = new User();
+  activeShoppingCartData: ShoppingCart = new ShoppingCart();
 
   getAllProducts(): Observable<Product[]> {
     let actualUrl = this.baseURL + '/Products';
@@ -37,6 +35,11 @@ export class DbCallsService {
   getUser(userId: string): Observable<User> {
     let actualUrl = this.baseURL + '/Users/' + userId;
     return this.http.get<User>(actualUrl);
+  }
+
+  getShoppingCart(userId: string): Observable<ShoppingCart> {
+    let actualUrl = this.baseURL + '/Users/' + userId + 'ShoppingCart';
+    return this.http.get<ShoppingCart>(actualUrl);
   }
 
   postNewUser(username: string, password: string): Observable<User> {

@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DbCallsService } from '../shared/db-calls.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-login',
@@ -8,17 +10,24 @@ import { DbCallsService } from '../shared/db-calls.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  constructor(private service: DbCallsService) {}
+  constructor(
+    private service: DbCallsService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   username!: string;
   password!: string;
   subLogin!: Subscription;
   subCreate!: Subscription;
+  subShopCart!: Subscription;
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    this.subLogin.unsubscribe();
+    if (this.subLogin) this.subLogin.unsubscribe();
+    if (this.subCreate) this.subCreate.unsubscribe();
+    if (this.subShopCart) this.subShopCart.unsubscribe();
   }
 
   verifyLogin() {
@@ -26,8 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       .verifyUserLogin(this.username, this.password)
       .subscribe({
         next: (res) => {
-          console.log(res);
           if (res != null) {
+            this.service.activeUserData = res;
             this.loggedIn();
           }
         },
@@ -35,7 +44,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loggedIn() {
-    console.log('Logged In');
+    let userId: string = '' + this.service.activeUserData.userId;
+    this.subShopCart = this.service.getShoppingCart(userId).subscribe((res) => {
+      next: {
+        this.service.activeShoppingCartData = res;
+        this.router.navigate(['/products']);
+      }
+    });
   }
 
   saveToCreate() {
@@ -43,9 +58,22 @@ export class LoginComponent implements OnInit, OnDestroy {
       .postNewUser(this.username, this.password)
       .subscribe((res) => {
         next: {
-          console.log('User Added');
-          console.log(res);
+          this.service.activeUserData = res;
+          this.userCreated();
         }
       });
+  }
+
+  userCreated() {
+    let userId: string = '' + this.service.activeUserData.userId;
+    this.subShopCart = this.service.getShoppingCart(userId).subscribe((res) => {
+      next: {
+        this.service.activeShoppingCartData = res;
+        this.router.navigate([
+          '/users',
+          { id: this.service.activeUserData.userId },
+        ]);
+      }
+    });
   }
 }

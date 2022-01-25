@@ -25,7 +25,7 @@
       </div>
     </div>
     <button class="btn btn-primary" (click)="verifyLogin()">Login</button>
-    <button class="btn btn-primary" routerLink="/products">Back</button>
+    <button class="btn btn-primary" [routerLink]="['/products']">Back</button>
     <button class="btn btn-primary" (click)="saveToCreate()">Create</button>
   </div>
 </body>

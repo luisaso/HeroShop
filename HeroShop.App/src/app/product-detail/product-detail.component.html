@@ -8,5 +8,7 @@
     <div class="div4">{{ productDetails.description }}</div>
     <div class="div5"><img src="{{ productDetails.imgLink }}" /></div>
   </div>
-  <button routerLink="/products" class="btn btn-primary btn-back">Back</button>
+  <button [routerLink]="['/products']" class="btn btn-primary btn-back">
+    Back
+  </button>
 </body>
