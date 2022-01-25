@@ -1,0 +1,30 @@
+<header>
+  <div class="jumbotron py-6 text-center banner">
+    <h1 class="shop-title">My Hero Shop</h1>
+  </div>
+</header>
+
+<body>
+  <div class="container">
+    <table class="table table-striped">
+      <thead class="thead-dark text-center">
+        <tr>
+          <th scope="col">Product Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Rarity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product; in: products">
+          <th scope="row">Product Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Rarity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Image</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>

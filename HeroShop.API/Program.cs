@@ -11,12 +11,15 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<HeroShopContext>(options =>
         options.UseSqlServer(configuration.GetConnectionString("DevConnection"))
 );
+builder.Services.AddCors();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors(options => options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

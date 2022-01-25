@@ -35,7 +35,7 @@ namespace HeroShop.API.Controllers
                 return NotFound();
             }
 
-            return OK(product);
+            return Ok(product);
         }
 
         // PUT: api/Products/5

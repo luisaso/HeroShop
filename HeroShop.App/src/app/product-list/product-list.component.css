@@ -1,0 +1,8 @@
+body {
+  /* background-image: url(../../data/background.jpg); */
+}
+
+.banner {
+  background-image: url("../../data/banner_hero_shop.jpg");
+  background-size: cover;
+}

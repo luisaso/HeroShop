@@ -1,0 +1,27 @@
+src
+    app
+
+        admin-profile
+            admin-profile.component.ts|html|css
+            
+            manage-product
+                manage-product.component.ts|html|css //ADD-EDIT-REMOVE
+
+        login
+            login.component.ts|html|css
+
+        product-detail
+            product-detail.component.ts|html|css
+
+        product-list
+            product-list.component.ts|html|css
+
+        shopping-cart
+            shopping-cart.component.ts|html|css
+
+        user-profile
+            user-profile.component.ts|html|css
+
+    app.module.ts
+
+index.html
