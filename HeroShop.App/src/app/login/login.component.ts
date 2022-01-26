@@ -19,14 +19,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   username!: string;
   password!: string;
   subLogin!: Subscription;
-  subCreate!: Subscription;
+  subCreateUser!: Subscription;
+  subCreateCart!: Subscription;
   subShopCart!: Subscription;
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
     if (this.subLogin) this.subLogin.unsubscribe();
-    if (this.subCreate) this.subCreate.unsubscribe();
+    if (this.subCreateUser) this.subCreateUser.unsubscribe();
     if (this.subShopCart) this.subShopCart.unsubscribe();
   }
 
@@ -54,10 +55,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   saveToCreate() {
-    this.subCreate = this.service
+    this.subCreateUser = this.service
       .postNewUser(this.username, this.password)
       .subscribe((res) => {
         next: {
+          console.log('NEW USER');
           this.service.activeUserData = res;
           this.userCreated();
         }
@@ -65,15 +67,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   userCreated() {
-    let userId: string = '' + this.service.activeUserData.userId;
-    this.subShopCart = this.service.getShoppingCart(userId).subscribe((res) => {
-      next: {
-        this.service.activeShoppingCartData = res;
-        this.router.navigate([
-          '/users',
-          { id: this.service.activeUserData.userId },
-        ]);
-      }
-    });
+    this.subCreateCart = this.service
+      .postNewCart(this.service.activeUserData.userId!)
+      .subscribe((res) => {
+        next: {
+          console.log('NEW CART');
+          this.service.activeShoppingCartData = res;
+          this.router.navigate([
+            '/users',
+            { id: this.service.activeUserData.userId },
+          ]);
+        }
+      });
   }
 }

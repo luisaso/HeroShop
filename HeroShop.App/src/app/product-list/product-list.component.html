@@ -13,12 +13,57 @@
     <tbody>
       <tr
         *ngFor="let product of products"
-        (click)="clickOnProduct(product.productId)"
         [routerLink]="['/products', product.productId]"
       >
         <td>{{ product.name }}</td>
         <td>{{ product.type }}</td>
-        <td>{{ product.rarity }}</td>
+        <!-- SADGE THAT THIS CAN'T WORK :'( -->
+        <!-- <ng-container
+          *ngFor="let rarity of rarityCheck; let i = index"
+          [attr.data-index]="i"
+        >
+          <td
+            *ngIf="product.rarity == rarityCheck[i]"
+            [ngStyle]="{ color: rarityColors[i] }"
+          >
+            {{ product.rarity }}
+          </td>
+        </ng-container> -->
+        <td
+          class="rarity"
+          *ngIf="product.rarity == rarityCheck[0]"
+          [ngStyle]="{ color: rarityColors[0] }"
+        >
+          {{ product.rarity }}
+        </td>
+        <td
+          class="rarity"
+          *ngIf="product.rarity == rarityCheck[1]"
+          [ngStyle]="{ color: rarityColors[1] }"
+        >
+          {{ product.rarity }}
+        </td>
+        <td
+          class="rarity"
+          *ngIf="product.rarity == rarityCheck[2]"
+          [ngStyle]="{ color: rarityColors[2] }"
+        >
+          {{ product.rarity }}
+        </td>
+        <td
+          class="rarity"
+          *ngIf="product.rarity == rarityCheck[3]"
+          [ngStyle]="{ color: rarityColors[3] }"
+        >
+          {{ product.rarity }}
+        </td>
+        <td
+          class="rarity"
+          *ngIf="product.rarity == rarityCheck[4]"
+          [ngStyle]="{ color: rarityColors[4] }"
+        >
+          {{ product.rarity }}
+        </td>
         <td>{{ product.price }}</td>
         <td>
           <img src="{{ product.imgLink }}" alt="{{ product.name }}" />

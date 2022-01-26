@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DbCallsService } from '../shared/db-calls.service';
+import { ShoppingCart } from '../shared/shopping-cart.model';
 import { User } from '../shared/user.model';
 
 @Component({
@@ -10,15 +11,29 @@ import { User } from '../shared/user.model';
 export class WelcomeComponent implements OnInit, OnDestroy {
   constructor(private service: DbCallsService) {}
 
-  user: User = new User();
+  user!: User;
+  shoppingCart!: ShoppingCart;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user = this.service.activeUserData;
+    this.shoppingCart = this.service.activeShoppingCartData;
+  }
   ngOnDestroy(): void {}
 
-  isLoggedIn(): boolean {
-    return this.user.userId != null && this.user.userId > 0;
+  getUserId() {
+    this.user = this.service.activeUserData;
+    return this.user.userId;
   }
+
+  isLoggedIn(): boolean {
+    return this.service.isLoggedIn();
+  }
+
+  isAdmin(): boolean {
+    return this.service.activeUserData.admin;
+  }
+
   onLogout() {
-    this.user = new User();
+    this.service.logOut();
   }
 }

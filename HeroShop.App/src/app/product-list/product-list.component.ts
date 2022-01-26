@@ -11,6 +11,21 @@ import { Product } from '../shared/product.model';
 export class ProductListComponent implements OnInit, OnDestroy {
   constructor(private dbCallsService: DbCallsService) {}
 
+  rarityCheck: string[] = [
+    'Common',
+    'Uncommon',
+    'Rare',
+    'Very Rare',
+    'Legendary',
+  ];
+  rarityColors: string[] = [
+    'grey',
+    'green',
+    'cornflowerblue',
+    'blueviolet',
+    'goldenrod',
+  ];
+
   subProducts!: Subscription;
   products: Product[] = [];
 
@@ -22,9 +37,5 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subProducts.unsubscribe();
-  }
-
-  clickOnProduct(productId: number) {
-    console.log(productId);
   }
 }

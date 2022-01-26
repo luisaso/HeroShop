@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { User } from './user.model';
 import { Product } from './product.model';
 import { ShoppingCart } from './shopping-cart.model';
@@ -38,19 +38,32 @@ export class DbCallsService {
   }
 
   getShoppingCart(userId: string): Observable<ShoppingCart> {
-    let actualUrl = this.baseURL + '/Users/' + userId + 'ShoppingCart';
+    let actualUrl = this.baseURL + '/Users/' + userId + '/ShoppingCart';
     return this.http.get<ShoppingCart>(actualUrl);
   }
 
   postNewUser(username: string, password: string): Observable<User> {
     let actualUrl = this.baseURL + '/Users/';
-    const headers = { 'content-type': 'application/json' };
     let newUser: User = new User();
     newUser.admin = false;
     newUser.password = password;
     newUser.username = username;
+    const headers = { 'content-type': 'application/json' };
     console.log(newUser);
     return this.http.post<User>(actualUrl, JSON.stringify(newUser), {
+      headers: headers,
+    });
+  }
+
+  postNewCart(userId: number): Observable<ShoppingCart> {
+    let actualUrl = this.baseURL + '/Users/';
+    let newCart: ShoppingCart = new ShoppingCart();
+
+    newCart.total = 0;
+    newCart.userId = userId;
+    console.log(newCart);
+    const headers = { 'content-type': 'application/json' };
+    return this.http.post<ShoppingCart>(actualUrl, JSON.stringify(newCart), {
       headers: headers,
     });
   }
@@ -58,5 +71,18 @@ export class DbCallsService {
   verifyUserLogin(username: string, password: string): Observable<User> {
     let actualUrl = this.baseURL + '/Users/' + username + '/' + password;
     return this.http.get<User>(actualUrl);
+  }
+
+  isLoggedIn(): boolean {
+    if (this.activeUserData?.userId) {
+      if (this.activeUserData.userId > 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  logOut() {
+    this.activeUserData = new User();
   }
 }

@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AdminProfileComponent,
     ShoppingCartComponent,
     ManageProductComponent,
-    PageNotFoundComponent,
     WelcomeComponent,
   ],
   imports: [
@@ -75,7 +73,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
       },
       {
         path: '**',
-        component: PageNotFoundComponent,
+        redirectTo: 'products',
+        pathMatch: 'full',
       },
     ]),
   ],

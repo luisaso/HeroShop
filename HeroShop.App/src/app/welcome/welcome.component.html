@@ -2,22 +2,35 @@
   <header>
     <div class="jumbotron py-6 text-center banner">
       <h1 class="shop-title">My Hero Shop</h1>
-      <button class="btn btn-secondary btn-login" routerLink="/login">
-        Login
-      </button>
       <button
-        class="btn btn-secondary btn-profile"
-        [routerLink]="isLoggedIn() ? ['/user', user.userId] : ['/login']"
+        class="btn btn-secondary btn-login"
+        [routerLink]="isLoggedIn() ? ['/user', getUserId()] : ['/login']"
       >
-        Profile
+        {{ isLoggedIn() ? "Profile" : "Login" }}
       </button>
       <button
+        *ngIf="isLoggedIn()"
+        class="btn btn-secondary btn-logout"
+        [routerLink]="['/products']"
+        (click)="onLogout()"
+      >
+        Logout
+      </button>
+      <button
+        *ngIf="isLoggedIn() && !isAdmin()"
         class="btn btn-secondary btn-shop-cart"
         [routerLink]="
-          isLoggedIn() ? ['/user', user.userId, 'shoppingcart'] : ['/login']
+          isLoggedIn() ? ['/user', getUserId(), 'shoppingcart'] : ['/login']
         "
       >
         Shopping Cart
+      </button>
+      <button
+        *ngIf="isLoggedIn() && isAdmin()"
+        class="btn btn-secondary btn-shop-cart"
+        [routerLink]="['/admin']"
+      >
+        Admin Den
       </button>
     </div>
   </header>
