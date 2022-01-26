@@ -1,0 +1,2 @@
+criar uma classe nova para guardar o carrinho por comprar
+quando comprar pego nesse objeto e crio o carrinho (a classe que já tinha) e na api dou automaticamente uma data lá dentro, recebendo apenas o objeto

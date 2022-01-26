@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { User } from './user.model';
 import { Product } from './product.model';
 import { ShoppingCart } from './shopping-cart.model';
-import { ProductShoppingCart } from './product-shopping-cart.model';
 import { Observable } from 'rxjs';
+import { TemporaryShoppingCart } from './temporary-shopping-cart.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class DbCallsService {
   readonly baseURL = 'http://localhost:5287/api';
 
   activeUserData: User = new User();
-  activeShoppingCartData: ShoppingCart = new ShoppingCart();
+  activeShoppingCartData: TemporaryShoppingCart = new TemporaryShoppingCart();
 
   getAllProducts(): Observable<Product[]> {
     let actualUrl = this.baseURL + '/Products';
@@ -57,11 +57,8 @@ export class DbCallsService {
 
   postNewCart(userId: number): Observable<ShoppingCart> {
     let actualUrl = this.baseURL + '/Users/';
-    let newCart: ShoppingCart = new ShoppingCart();
-
-    newCart.total = 0;
+    let newCart = this.activeShoppingCartData;
     newCart.userId = userId;
-    console.log(newCart);
     const headers = { 'content-type': 'application/json' };
     return this.http.post<ShoppingCart>(actualUrl, JSON.stringify(newCart), {
       headers: headers,
@@ -84,5 +81,15 @@ export class DbCallsService {
 
   logOut() {
     this.activeUserData = new User();
+  }
+
+  calculateTotal(shoppingCart: TemporaryShoppingCart): number {
+    let total: number = 0;
+    if (shoppingCart.productsShoppingCart) {
+      shoppingCart.productsShoppingCart.forEach((orderItem) => {
+        total += orderItem.amount * orderItem.product.price;
+      });
+    }
+    return total;
   }
 }

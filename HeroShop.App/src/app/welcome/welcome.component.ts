@@ -17,6 +17,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user = this.service.activeUserData;
     this.shoppingCart = this.service.activeShoppingCartData;
+    console.log(new Date().toJSON());
   }
   ngOnDestroy(): void {}
 

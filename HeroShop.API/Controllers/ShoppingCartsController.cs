@@ -91,17 +91,21 @@ namespace HeroShop.API.Controllers
 
         // POST: api/Users/4/ShoppingCart
         [HttpPost]
-        public async Task<ActionResult<ShoppingCart>> PostShoppingCart(ShoppingCart shoppingCart, int userId)
+        public async Task<ActionResult<ShoppingCart>> PostShoppingCart(TemporaryShoppingCart temporaryShoppingCart)
         {
-            if (!UserExists(userId))
+            if (!UserExists(temporaryShoppingCart.UserId))
             {
                 return NotFound();
             }
 
+            ShoppingCart shoppingCart = new ShoppingCart() { UserId = temporaryShoppingCart.UserId, ProductsShoppingCart = temporaryShoppingCart.ProductsShoppingCart };
+
+            shoppingCart.Total = CalculateTotal(temporaryShoppingCart.ProductsShoppingCart);
+            shoppingCart.OrderPlaced = DateTime.Now;
 
             _context.ShoppingCarts.Add(shoppingCart);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetShoppingCart", new { cartId = shoppingCart.ShoppingCartId, userId = userId }, shoppingCart);
+            return CreatedAtAction("GetShoppingCart", new { cartId = shoppingCart.ShoppingCartId, userId = shoppingCart.UserId }, shoppingCart);
         }
 
         //// POST: api/Users/4/ShoppingCart/Products
@@ -291,6 +295,17 @@ namespace HeroShop.API.Controllers
             ShoppingCart activeShoppingCart = userShoppingCarts.Where(cart => cart.ShoppingCartId == activeShoppingCartId).FirstOrDefault();
 
             return activeShoppingCart;
+        }
+
+        private int CalculateTotal(List<ProductShoppingCart> products)
+        {
+            int total = 0;
+
+            foreach (var product in products)
+            {
+                total += product.Amount * product.Product.Price;
+            }
+            return total;
         }
     }
 }
