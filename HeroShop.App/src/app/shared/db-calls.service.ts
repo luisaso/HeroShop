@@ -81,6 +81,7 @@ export class DbCallsService {
 
   logOut() {
     this.activeUserData = new User();
+    this.activeShoppingCartData = new TemporaryShoppingCart();
   }
 
   calculateTotal(shoppingCart: TemporaryShoppingCart): number {
