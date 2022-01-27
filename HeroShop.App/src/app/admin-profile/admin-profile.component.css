@@ -1,0 +1,40 @@
+body {
+  text-align: center;
+  align-items: center;
+  width: 500px;
+  padding: 20px;
+  padding-bottom: 300px;
+  position: relative;
+}
+
+.container {
+  height: fit-content;
+}
+
+.btn-add {
+  position: absolute;
+  width: 420px;
+  left: 40px;
+  bottom: 245px;
+}
+
+.btn-edit {
+  position: absolute;
+  width: 420px;
+  left: 40px;
+  bottom: 170px;
+}
+
+.btn-delete {
+  position: absolute;
+  width: 420px;
+  left: 40px;
+  bottom: 95px;
+}
+
+.btn-back {
+  position: absolute;
+  width: 100px;
+  left: 200px;
+  bottom: 20px;
+}

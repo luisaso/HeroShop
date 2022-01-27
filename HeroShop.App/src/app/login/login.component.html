@@ -17,15 +17,21 @@
       <div class="input-group mb-2">
         <span class="input-group-text" id="password">Password</span>
         <input
-          type="text"
+          type="password"
           class="form-control"
           id="password"
           [(ngModel)]="password"
         />
       </div>
     </div>
-    <button class="btn btn-primary" (click)="verifyLogin()">Login</button>
-    <button class="btn btn-primary" [routerLink]="['/products']">Back</button>
-    <button class="btn btn-primary" (click)="saveToCreateUser()">Create</button>
+    <button class="btn btn-primary btn-login" (click)="verifyLogin()">
+      Login
+    </button>
+    <button class="btn btn-primary btn-back" [routerLink]="['/products']">
+      Back
+    </button>
+    <button class="btn btn-primary btn-create" (click)="saveToCreateUser()">
+      Create
+    </button>
   </div>
 </body>

@@ -2,6 +2,7 @@ body {
   align-items: center;
   width: 70%;
   padding: 0;
+  height: fit-content;
 }
 
 td img {

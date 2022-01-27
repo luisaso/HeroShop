@@ -1,1 +1,91 @@
-<p>manage-product works!</p>
+<body class="container">
+  <div class="header-manage">
+    <h3>Product Manager</h3>
+
+    <div class="parent">
+      <div class="name">
+        <div class="input-group mb-0">
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Name"
+            [(ngModel)]="this.newProduct.name"
+          />
+        </div>
+      </div>
+      <div class="price">
+        <div class="input-group mb-0">
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            placeholder="Price"
+            [(ngModel)]="this.newProduct.price"
+          />
+        </div>
+      </div>
+      <div class="rarity">
+        <div class="input-group mb-2">
+          <select
+            name="rarity"
+            class="form-control"
+            id="rarity"
+            [(ngModel)]="this.newProduct.rarity"
+          >
+            <option *ngFor="let rarity of this.auxRarity" [ngValue]="rarity">
+              {{ rarity }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="type">
+        <div class="input-group mb-2">
+          <select
+            name="type"
+            class="form-control"
+            id="type"
+            [(ngModel)]="this.newProduct.type"
+          >
+            <option *ngFor="let type of this.auxTypes" [ngValue]="type">
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="img-url">
+        <div class="input-group mb-0">
+          <input
+            type="text"
+            class="form-control"
+            id="imgUrl"
+            placeholder="Image URL"
+            [(ngModel)]="this.newProduct.imgLink"
+          />
+        </div>
+      </div>
+      <div class="description">
+        <div class="input-group mb-0">
+          <textarea
+            type=""
+            class="form-control"
+            id="description"
+            rows="4"
+            placeholder="Description"
+            [(ngModel)]="this.newProduct.description"
+          ></textarea>
+        </div>
+      </div>
+      <div class="add">
+        <button class="btn btn-primary btn-add" (click)="addProduct()">
+          Add Product
+        </button>
+      </div>
+      <div class="back">
+        <button class="btn btn-primary btn-back" [routerLink]="['/admin']">
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</body>

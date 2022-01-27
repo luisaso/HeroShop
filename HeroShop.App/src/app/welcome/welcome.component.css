@@ -1,41 +1,43 @@
 .all {
   background-image: url(../../data/background.jpg);
-  background-size: auto;
+  background-size: cover;
   background-attachment: fixed;
+  min-height: 100vh;
 }
 
 .banner {
   background-image: url("../../data/banner_hero_shop.jpg");
   background-size: cover;
   position: relative;
+  height: 20vh;
 }
 
 .shop-title {
-  padding-left: 20%;
-  color: chartreuse;
+  color: lightskyblue;
+  position: absolute;
+  top: 37%;
+  left: 45%;
+  font-size: 30px;
 }
 
 .btn-login {
   position: absolute;
-  padding: 25px;
-  width: 200px;
+  width: 100px;
   left: 20px;
-  top: 10px;
+  top: 15px;
 }
 
 .btn-logout {
   position: absolute;
-  padding: 25px;
-  width: 200px;
+  width: 100px;
   left: 20px;
-  bottom: 10px;
+  bottom: 15px;
 }
 
 .btn-shop-cart {
   position: absolute;
-  padding: 30px;
-  width: 200px;
+  width: 100px;
   right: 20px;
-  top: 10px;
-  bottom: 10px;
+  top: 15px;
+  bottom: 15px;
 }

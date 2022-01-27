@@ -1,1 +1,83 @@
-<p>user-profile works!</p>
+<body class="container">
+  <div class="header-profile">
+    <h3>User Profile</h3>
+
+    <div class="name">
+      <div class="input-group mb-2">
+        <span class="input-group-text" id="name">Name</span>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="this.temporaryUser.name"
+        />
+      </div>
+    </div>
+    <div class="email">
+      <div class="input-group mb-2">
+        <span class="input-group-text" id="email">E-Mail</span>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          [(ngModel)]="this.temporaryUser.email"
+        />
+      </div>
+    </div>
+    <div class="gender">
+      <form class="input-group mb-2">
+        <span class="input-group-text" id="gender">Gender</span>
+        <input
+          type="radio"
+          class="form-control"
+          id="gender-male"
+          name="gender"
+          value="Male"
+          [(ngModel)]="this.temporaryUser.gender"
+        />
+        <label for="gender-male">Male</label>
+
+        <input
+          type="radio"
+          class="form-control"
+          id="gender-female"
+          name="gender"
+          value="Female"
+          [(ngModel)]="this.temporaryUser.gender"
+        />
+        <label for="gender-female">Female</label>
+
+        <input
+          type="radio"
+          class="form-control"
+          id="gender-other"
+          name="gender"
+          value="Other"
+          [(ngModel)]="this.temporaryUser.gender"
+        />
+        <label for="gender-other">Other</label>
+      </form>
+    </div>
+    <div class="race">
+      <div class="input-group mb-2">
+        <label class="input-group-text" for="race">Race</label>
+        <select
+          name="race"
+          class="form-control"
+          id="race"
+          [(ngModel)]="this.temporaryUser.race"
+        >
+          <option *ngFor="let race of this.auxRaces" [ngValue]="race">
+            {{ race }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-save" (click)="saveChanges()">
+      Save Changes
+    </button>
+    <button class="btn btn-primary btn-back" [routerLink]="['/products']">
+      Back
+    </button>
+  </div>
+</body>

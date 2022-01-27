@@ -1,1 +1,30 @@
-<p>admin-profile works!</p>
+<body class="container">
+  <div class="header-profile">
+    <h3>Admin Den</h3>
+
+    <button
+      class="btn btn-primary btn-add"
+      [routerLink]="['/admin/manageproduct']"
+      [queryParams]="{ type: 'add' }"
+    >
+      Add Product
+    </button>
+    <button
+      class="btn btn-primary btn-edit"
+      [routerLink]="['/admin/manageproduct']"
+      [queryParams]="{ type: 'edit' }"
+    >
+      Edit Product
+    </button>
+    <button
+      class="btn btn-primary btn-delete"
+      [routerLink]="['/admin/manageproduct']"
+      [queryParams]="{ type: 'delete' }"
+    >
+      Delete Product
+    </button>
+    <button class="btn btn-primary btn-back" [routerLink]="['/products']">
+      Back
+    </button>
+  </div>
+</body>

@@ -15,30 +15,31 @@ h2 {
   grid-row-gap: 0px;
 }
 
-.div1 {
+.name {
   text-align: center;
   grid-area: 1 / 1 / 2 / 6;
 }
-.div2 {
+.rarity {
   text-align: center;
   grid-area: 2 / 1 / 3 / 2;
 }
-.div3 {
+.type {
   text-align: center;
   grid-area: 2 / 2 / 3 / 3;
 }
-.div4 {
+.description {
   text-align: center;
   grid-area: 3 / 1 / 6 / 3;
+  overflow-y: auto;
 }
-.div5 {
+.image {
   text-align: center;
   padding: 30px;
   grid-area: 2 / 3 / 6 / 6;
 }
 
-.div5 img {
-  width: 100%;
+.image img {
+  width: 50%;
   height: auto;
 }
 

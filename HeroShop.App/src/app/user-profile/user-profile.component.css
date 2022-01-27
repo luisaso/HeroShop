@@ -1,0 +1,41 @@
+body {
+  text-align: center;
+  align-items: center;
+  width: 500px;
+  padding: 20px;
+  padding-bottom: 70px;
+  position: relative;
+}
+
+form label {
+  align-self: center;
+  position: relative;
+  left: -30px;
+  bottom: -2px;
+}
+
+form input {
+  align-self: center;
+  height: auto;
+  width: auto;
+}
+
+.container {
+  height: fit-content;
+}
+
+.input-group-text {
+  width: 75px;
+}
+
+.btn-save {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+}
+
+.btn-back {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}

@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DbCallsService } from '../shared/db-calls.service';
-import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +9,7 @@ import { User } from '../shared/user.model';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  constructor(
-    private service: DbCallsService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  constructor(private service: DbCallsService, private router: Router) {}
 
   username!: string;
   password!: string;

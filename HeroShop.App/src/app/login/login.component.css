@@ -3,8 +3,34 @@ body {
   align-items: center;
   width: 70%;
   padding: 20px;
+  position: relative;
+  width: fit-content;
+}
+
+span {
+  width: 90px;
 }
 
 input {
   width: 50px;
+}
+
+.container {
+  height: fit-content;
+}
+
+.btn-login {
+  position: absolute;
+  left: 10%;
+  width: 75px;
+}
+
+.btn-back {
+  width: 75px;
+}
+
+.btn-create {
+  position: absolute;
+  right: 10%;
+  width: 75px;
 }

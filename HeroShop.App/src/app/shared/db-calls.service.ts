@@ -64,6 +64,24 @@ export class DbCallsService {
     });
   }
 
+  postNewProduct(newProduct: Product): Observable<Product> {
+    let actualUrl = this.baseURL + '/Products';
+    const headers = { 'content-type': 'application/json' };
+    newProduct.productId = 0;
+    return this.http.post<Product>(actualUrl, JSON.stringify(newProduct), {
+      headers: headers,
+    });
+  }
+
+  updateUser(updatedUser: User): Observable<any> {
+    let actualUrl = this.baseURL + '/Users/' + this.activeUserData.userId;
+    const headers = { 'content-type': 'application/json' };
+    console.log(updatedUser);
+    return this.http.put<any>(actualUrl, JSON.stringify(updatedUser), {
+      headers: headers,
+    });
+  }
+
   createNewTemporaryCart(userId: number) {
     this.activeShoppingCartData = new TemporaryShoppingCart();
 
