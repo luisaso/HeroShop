@@ -54,32 +54,31 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  saveToCreate() {
+  saveToCreateUser() {
     this.subCreateUser = this.service
       .postNewUser(this.username, this.password)
       .subscribe((res) => {
         next: {
-          console.log('NEW USER');
           this.service.activeUserData = res;
-          this.userCreated();
+          this.service.createNewTemporaryCart(res.userId!);
         }
       });
   }
 
-  userCreated() {
-    //Só serve para enviar um carrinho já terminado
-    //   this.subCreateCart = this.service
-    //     .postNewCart(this.service.activeUserData.userId!)
-    //     .subscribe((res) => {
-    //       next: {
-    //         console.log('NEW CART');
-    //         this.service.activeShoppingCartData = res;
-    //         this.router.navigate([
-    //           '/users',
-    //           { id: this.service.activeUserData.userId },
-    //         ]);
-    //       }
-    //     });
-    console.log('USER CREATED');
-  }
+  //createOrder() {
+  //Só serve para enviar um carrinho já terminado
+  //   this.subCreateCart = this.service
+  //     .postNewCart(this.service.activeUserData.userId!)
+  //     .subscribe((res) => {
+  //       next: {
+  //         console.log('NEW CART');
+  //         this.service.activeShoppingCartData = res;
+  //         this.router.navigate([
+  //           '/users',
+  //           { id: this.service.activeUserData.userId },
+  //         ]);
+  //       }
+  //     });
+  //
+  //}
 }

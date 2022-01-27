@@ -49,7 +49,6 @@ export class DbCallsService {
     newUser.password = password;
     newUser.username = username;
     const headers = { 'content-type': 'application/json' };
-    console.log(newUser);
     return this.http.post<User>(actualUrl, JSON.stringify(newUser), {
       headers: headers,
     });
@@ -63,6 +62,12 @@ export class DbCallsService {
     return this.http.post<ShoppingCart>(actualUrl, JSON.stringify(newCart), {
       headers: headers,
     });
+  }
+
+  createNewTemporaryCart(userId: number) {
+    this.activeShoppingCartData = new TemporaryShoppingCart();
+
+    this.activeShoppingCartData.userId = userId;
   }
 
   verifyUserLogin(username: string, password: string): Observable<User> {
