@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: {
           this.service.activeUserData = res;
           this.service.createNewTemporaryCart(res.userId!);
+          this.router.navigate(['/user/', this.service.activeUserData.userId]);
         }
       });
   }

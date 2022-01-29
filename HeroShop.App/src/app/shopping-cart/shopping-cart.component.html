@@ -1,1 +1,42 @@
-<p>shopping-cart works!</p>
+<body class="container">
+  <div class="header-profile">
+    <h3>Shopping Cart</h3>
+
+    <div class="parent">
+      <div class="products">
+        <div
+          class="parent-products"
+          *ngFor="
+            let shoppingCartProduct of activeShoppingCart.productsShoppingCart
+          "
+        >
+          <div class="image">
+            <img src="{{ shoppingCartProduct.product.imgLink }}" />
+          </div>
+          <div class="name">
+            {{ shoppingCartProduct.product.name }}
+          </div>
+          <div class="amount">
+            {{ shoppingCartProduct.amount }}
+          </div>
+          <div class="price">
+            {{ shoppingCartProduct.product.price }}
+          </div>
+        </div>
+      </div>
+      <div class="line"></div>
+      <div class="total">Total</div>
+      <div class="total-price">{{ calculateTotalPrice() }}</div>
+      <div class="back">
+        <button class="btn btn-primary btn-back" [routerLink]="['/products']">
+          Back
+        </button>
+      </div>
+      <div class="buy">
+        <button class="btn btn-primary btn-buy" (click)="placeOrder()">
+          Buy
+        </button>
+      </div>
+    </div>
+  </div>
+</body>

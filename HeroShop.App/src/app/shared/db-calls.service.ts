@@ -76,10 +76,22 @@ export class DbCallsService {
   updateUser(updatedUser: User): Observable<any> {
     let actualUrl = this.baseURL + '/Users/' + this.activeUserData.userId;
     const headers = { 'content-type': 'application/json' };
-    console.log(updatedUser);
     return this.http.put<any>(actualUrl, JSON.stringify(updatedUser), {
       headers: headers,
     });
+  }
+
+  updateProduct(updatedProduct: Product): Observable<any> {
+    let actualUrl = this.baseURL + '/Products/' + updatedProduct.productId;
+    const headers = { 'content-type': 'application/json' };
+    return this.http.put<any>(actualUrl, JSON.stringify(updatedProduct), {
+      headers: headers,
+    });
+  }
+
+  deleteProduct(updatedProduct: Product): Observable<any> {
+    let actualUrl = this.baseURL + '/Products/' + updatedProduct.productId;
+    return this.http.delete<any>(actualUrl);
   }
 
   createNewTemporaryCart(userId: number) {

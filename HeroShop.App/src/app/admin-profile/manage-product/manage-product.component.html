@@ -2,7 +2,8 @@
   <div class="header-manage">
     <h3>Product Manager</h3>
 
-    <div class="parent">
+    <!-- #region - Add Product  -->
+    <div class="parent" *ngIf="selectManagePage() == 'add'">
       <div class="name">
         <div class="input-group mb-0">
           <input
@@ -87,5 +88,118 @@
         </button>
       </div>
     </div>
+    <!-- #endregion -->
+
+    <!-- #region - Edit/Delete Product-->
+    <div class="parent" *ngIf="selectManagePage() != 'add'">
+      <div class="select-product">
+        <div class="input-group mb-2">
+          <select
+            name="selectProduct"
+            class="form-control"
+            id="selectProduct"
+            [(ngModel)]="this.selectedProduct"
+            (change)="onProductSelection()"
+          >
+            <option
+              *ngFor="let product of this.allProducts"
+              [ngValue]="product"
+            >
+              {{ product.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="name">
+        <div class="input-group mb-0">
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Name"
+            [(ngModel)]="this.selectedProduct.name"
+          />
+        </div>
+      </div>
+      <div class="price">
+        <div class="input-group mb-0">
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            placeholder="Price"
+            [(ngModel)]="this.selectedProduct.price"
+          />
+        </div>
+      </div>
+      <div class="rarity">
+        <div class="input-group mb-2">
+          <select
+            name="rarity"
+            class="form-control"
+            id="rarity"
+            [(ngModel)]="this.selectedProduct.rarity"
+          >
+            <option *ngFor="let rarity of this.auxRarity" [ngValue]="rarity">
+              {{ rarity }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="type">
+        <div class="input-group mb-2">
+          <select
+            name="type"
+            class="form-control"
+            id="type"
+            [(ngModel)]="this.selectedProduct.type"
+          >
+            <option *ngFor="let type of this.auxTypes" [ngValue]="type">
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="img-url">
+        <div class="input-group mb-0">
+          <input
+            type="text"
+            class="form-control"
+            id="imgUrl"
+            placeholder="Image URL"
+            [(ngModel)]="this.selectedProduct.imgLink"
+          />
+        </div>
+      </div>
+      <div class="description">
+        <div class="input-group mb-0">
+          <textarea
+            type=""
+            class="form-control"
+            id="description"
+            rows="4"
+            placeholder="Description"
+            [(ngModel)]="this.selectedProduct.description"
+          ></textarea>
+        </div>
+      </div>
+      <div class="edit" *ngIf="selectManagePage() == 'edit'">
+        <button class="btn btn-primary btn-edit" (click)="editProduct()">
+          Save Changes
+        </button>
+      </div>
+      <div class="delete" *ngIf="selectManagePage() == 'delete'">
+        <button class="btn btn-primary btn-delete" (click)="deleteProduct()">
+          Delete Product
+        </button>
+      </div>
+      <div class="back">
+        <button class="btn btn-primary btn-back" [routerLink]="['/admin']">
+          Back
+        </button>
+      </div>
+    </div>
+    <!-- #endregion -->
   </div>
 </body>
