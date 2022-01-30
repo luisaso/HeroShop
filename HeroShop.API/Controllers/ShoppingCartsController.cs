@@ -88,7 +88,7 @@ namespace HeroShop.API.Controllers
         }
 
         /*--------POST--------------------*/
-
+        // Erro quando faço um post com produtos dentro. Sem produtos é tranquilo
         // POST: api/Users/4/ShoppingCart
         [HttpPost]
         public async Task<ActionResult<ShoppingCart>> PostShoppingCart(TemporaryShoppingCart temporaryShoppingCart)
@@ -96,6 +96,14 @@ namespace HeroShop.API.Controllers
             if (!UserExists(temporaryShoppingCart.UserId))
             {
                 return NotFound();
+            }
+
+            foreach (ProductShoppingCart product in temporaryShoppingCart.ProductsShoppingCart)
+            {
+                ProductShoppingCart auxProd = new ProductShoppingCart { Product = product.Product, Amount = product.Amount, ShoppingCartId = product.ShoppingCartId };
+                _context.ProductShoppingCarts.Add(auxProd);
+                _context.SaveChanges();
+                _context.Entry(auxProd).State = EntityState.Detached;
             }
 
             ShoppingCart shoppingCart = new ShoppingCart() { UserId = temporaryShoppingCart.UserId, ProductsShoppingCart = temporaryShoppingCart.ProductsShoppingCart };

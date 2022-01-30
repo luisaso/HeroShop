@@ -54,21 +54,31 @@ export class DbCallsService {
     });
   }
 
-  postNewCart(userId: number): Observable<ShoppingCart> {
-    let actualUrl = this.baseURL + '/Users/';
-    let newCart = this.activeShoppingCartData;
-    newCart.userId = userId;
-    const headers = { 'content-type': 'application/json' };
-    return this.http.post<ShoppingCart>(actualUrl, JSON.stringify(newCart), {
-      headers: headers,
-    });
-  }
+  // postNewCart(userId: number): Observable<ShoppingCart> {
+  //   let actualUrl = this.baseURL + '/Users/';
+  //   let newCart = this.activeShoppingCartData;
+  //   newCart.userId = userId;
+  //   const headers = { 'content-type': 'application/json' };
+  //   return this.http.post<ShoppingCart>(actualUrl, JSON.stringify(newCart), {
+  //     headers: headers,
+  //   });
+  // }
 
   postNewProduct(newProduct: Product): Observable<Product> {
     let actualUrl = this.baseURL + '/Products';
     const headers = { 'content-type': 'application/json' };
     newProduct.productId = 0;
     return this.http.post<Product>(actualUrl, JSON.stringify(newProduct), {
+      headers: headers,
+    });
+  }
+
+  postNewOrder(newOrder: TemporaryShoppingCart): Observable<ShoppingCart> {
+    console.log(newOrder);
+    let actualUrl =
+      this.baseURL + '/Users/' + newOrder.userId + '/ShoppingCart';
+    const headers = { 'content-type': 'application/json' };
+    return this.http.post<any>(actualUrl, JSON.stringify(newOrder), {
       headers: headers,
     });
   }
