@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DbCallsService } from '../shared/db-calls.service';
-import { TemporaryShoppingCart } from '../shared/temporary-shopping-cart.model';
+import { ProductShoppingCartToPost } from '../shared/product-shopping-cart.model';
+import { ShoppingCartToPost } from '../shared/shopping-cart.model';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -11,17 +12,18 @@ import { TemporaryShoppingCart } from '../shared/temporary-shopping-cart.model';
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
   constructor(private service: DbCallsService, private router: Router) {}
-  ngOnDestroy(): void {
-    if (this.subPostCart) this.subPostCart.unsubscribe();
-  }
 
-  activeShoppingCart!: TemporaryShoppingCart;
+  activeShoppingCart!: ShoppingCartToPost;
   totalPrice: number = 0;
 
   subPostCart!: Subscription;
 
   ngOnInit(): void {
     this.activeShoppingCart = this.service.activeShoppingCartData;
+  }
+
+  ngOnDestroy(): void {
+    if (this.subPostCart) this.subPostCart.unsubscribe();
   }
 
   calculateTotalPrice(): number {
@@ -35,17 +37,38 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   placeOrder() {
-    console.log(this.calculateTotalPrice());
-    console.log('Order Placed - TO DO');
-
     this.subPostCart = this.service
       .postNewOrder(this.service.activeShoppingCartData)
       .subscribe((res) => {
         next: {
           console.log('Order Created');
-          this.service.activeShoppingCartData = new TemporaryShoppingCart();
+          this.service.activeShoppingCartData = new ShoppingCartToPost();
           this.router.navigate(['/products']);
         }
       });
+  }
+
+  addOne(product: ProductShoppingCartToPost) {
+    this.service.addToCart(product.product.productId, 1);
+    this.activeShoppingCart = this.service.activeShoppingCartData;
+  }
+
+  subOne(product: ProductShoppingCartToPost) {
+    this.service.addToCart(product.product.productId, -1);
+    this.activeShoppingCart = this.service.activeShoppingCartData;
+  }
+
+  removeOne(product: ProductShoppingCartToPost) {
+    this.service.removeFromCart(product.product.productId);
+    this.activeShoppingCart = this.service.activeShoppingCartData;
+  }
+
+  removeAll() {
+    this.service.removeAllFromCart();
+    this.activeShoppingCart = this.service.activeShoppingCartData;
+  }
+
+  trackItem(index: number, prod: ProductShoppingCartToPost) {
+    return prod.shoppingCartId;
   }
 }

@@ -9,28 +9,16 @@ import { Product } from '../shared/product.model';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  constructor(private dbCallsService: DbCallsService) {}
+  constructor(private service: DbCallsService) {}
 
-  rarityCheck: string[] = [
-    'Common',
-    'Uncommon',
-    'Rare',
-    'Very Rare',
-    'Legendary',
-  ];
-  rarityColors: string[] = [
-    'grey',
-    'green',
-    'cornflowerblue',
-    'blueviolet',
-    'goldenrod',
-  ];
+  rarityCheck: string[] = this.service.rarityCheck;
+  rarityColors: string[] = this.service.rarityColors;
 
   subProducts!: Subscription;
   products: Product[] = [];
 
   ngOnInit(): void {
-    this.subProducts = this.dbCallsService.getAllProducts().subscribe({
+    this.subProducts = this.service.getAllProducts().subscribe({
       next: (prods) => (this.products = prods),
     });
   }

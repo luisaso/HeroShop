@@ -7,7 +7,8 @@
         <div
           class="parent-products"
           *ngFor="
-            let shoppingCartProduct of activeShoppingCart.productsShoppingCart
+            let shoppingCartProduct of activeShoppingCart.productsShoppingCart;
+            trackBy: trackItem
           "
         >
           <div class="image">
@@ -17,19 +18,48 @@
             {{ shoppingCartProduct.product.name }}
           </div>
           <div class="amount">
-            {{ shoppingCartProduct.amount }}
+            <div>x{{ shoppingCartProduct.amount }}</div>
+            <div class="delete">
+              <button
+                class="btn btn-secondary btn-sm btn-add-amount"
+                (click)="addOne(shoppingCartProduct)"
+              >
+                +
+              </button>
+            </div>
+            <div class="delete">
+              <button
+                class="btn btn-secondary btn-sm btn-sub-amount"
+                (click)="subOne(shoppingCartProduct)"
+              >
+                -
+              </button>
+            </div>
           </div>
           <div class="price">
-            {{ shoppingCartProduct.product.price }}
+            <div>{{ shoppingCartProduct.product.price }} GP</div>
+            <div class="delete">
+              <button
+                class="btn btn-danger btn-sm btn-delete"
+                (click)="removeOne(shoppingCartProduct)"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
       <div class="line"></div>
       <div class="total">Total</div>
-      <div class="total-price">{{ calculateTotalPrice() }}</div>
+      <div class="total-price">{{ calculateTotalPrice() }} GP</div>
       <div class="back">
         <button class="btn btn-primary btn-back" [routerLink]="['/products']">
           Back
+        </button>
+      </div>
+      <div class="delete-all">
+        <button class="btn btn-danger btn-delete-all" (click)="removeAll()">
+          Delete All
         </button>
       </div>
       <div class="buy">

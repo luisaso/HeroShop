@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from './user.model';
 import { Product } from './product.model';
-import { ShoppingCart } from './shopping-cart.model';
+import { ShoppingCart, ShoppingCartToPost } from './shopping-cart.model';
 import { Observable } from 'rxjs';
-import { TemporaryShoppingCart } from './temporary-shopping-cart.model';
+import {
+  ProductShoppingCart,
+  ProductShoppingCartToPost,
+} from './product-shopping-cart.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +18,22 @@ export class DbCallsService {
   readonly baseURL = 'http://localhost:5287/api';
 
   activeUserData: User = new User();
-  activeShoppingCartData: TemporaryShoppingCart = new TemporaryShoppingCart();
+  activeShoppingCartData: ShoppingCartToPost = new ShoppingCartToPost();
+
+  rarityCheck: string[] = [
+    'Common',
+    'Uncommon',
+    'Rare',
+    'Very Rare',
+    'Legendary',
+  ];
+  rarityColors: string[] = [
+    'grey',
+    'green',
+    'cornflowerblue',
+    'blueviolet',
+    'goldenrod',
+  ];
 
   getAllProducts(): Observable<Product[]> {
     let actualUrl = this.baseURL + '/Products';
@@ -73,7 +91,7 @@ export class DbCallsService {
     });
   }
 
-  postNewOrder(newOrder: TemporaryShoppingCart): Observable<ShoppingCart> {
+  postNewOrder(newOrder: ShoppingCartToPost): Observable<ShoppingCart> {
     console.log(newOrder);
     let actualUrl =
       this.baseURL + '/Users/' + newOrder.userId + '/ShoppingCart';
@@ -105,7 +123,7 @@ export class DbCallsService {
   }
 
   createNewTemporaryCart(userId: number) {
-    this.activeShoppingCartData = new TemporaryShoppingCart();
+    this.activeShoppingCartData = new ShoppingCartToPost();
 
     this.activeShoppingCartData.userId = userId;
   }
@@ -126,10 +144,25 @@ export class DbCallsService {
 
   logOut() {
     this.activeUserData = new User();
-    this.activeShoppingCartData = new TemporaryShoppingCart();
+    this.activeShoppingCartData = new ShoppingCartToPost();
   }
 
-  calculateTotal(shoppingCart: TemporaryShoppingCart): number {
+  isInCart(prodId: number): boolean {
+    if (this.activeShoppingCartData.productsShoppingCart == []) {
+      return false;
+    }
+
+    let itExists = false;
+    this.activeShoppingCartData.productsShoppingCart!.forEach((element) => {
+      if (element.product.productId == prodId) {
+        itExists = true;
+      }
+    });
+
+    return itExists;
+  }
+
+  calculateTotal(shoppingCart: ShoppingCartToPost): number {
     let total: number = 0;
     if (shoppingCart.productsShoppingCart) {
       shoppingCart.productsShoppingCart.forEach((orderItem) => {
@@ -137,5 +170,43 @@ export class DbCallsService {
       });
     }
     return total;
+  }
+
+  addToCart(prodId: number, amount: number) {
+    if (!this.isInCart) {
+    }
+
+    this.activeShoppingCartData.productsShoppingCart!.forEach((element) => {
+      if (element.product.productId == prodId) {
+        element.amount += amount;
+        if (element.amount <= 0) {
+          this.removeFromCart(prodId);
+        }
+      }
+    });
+  }
+
+  removeFromCart(prodId: number) {
+    this.activeShoppingCartData.productsShoppingCart!.forEach(
+      (element, index) => {
+        if (element.product.productId == prodId) {
+          this.activeShoppingCartData.productsShoppingCart!.splice(index, 1);
+        }
+      }
+    );
+  }
+
+  removeFromCartByProd(prodId: number) {
+    this.activeShoppingCartData.productsShoppingCart!.forEach(
+      (element, index) => {
+        if (element.product.productId == prodId) {
+          this.activeShoppingCartData.productsShoppingCart!.splice(index, 1);
+        }
+      }
+    );
+  }
+
+  removeAllFromCart() {
+    this.activeShoppingCartData = new ShoppingCartToPost();
   }
 }

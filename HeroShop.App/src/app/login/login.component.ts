@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     let userId: string = '' + this.service.activeUserData.userId;
     this.subShopCart = this.service.getShoppingCart(userId).subscribe((res) => {
       next: {
-        this.service.activeShoppingCartData = res;
+        //this.service.activeShoppingCartData = res;
         this.router.navigate(['/products']);
       }
     });

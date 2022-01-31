@@ -10,21 +10,32 @@ import { Product } from '../shared/product.model';
   styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
-  constructor(
-    private dbCallsService: DbCallsService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private service: DbCallsService, private route: ActivatedRoute) {}
 
   subProduct!: Subscription;
   productDetails: Product = new Product();
 
+  rarityCheck: string[] = this.service.rarityCheck;
+  rarityColors: string[] = this.service.rarityColors;
+  amountToAdd: number = 1;
+
   ngOnInit(): void {
     let productId = this.route.snapshot.paramMap.get('id');
-    this.subProduct = this.dbCallsService
+    this.subProduct = this.service
       .getProductDetail(productId!)
       .subscribe({ next: (prod) => (this.productDetails = prod) });
   }
   ngOnDestroy(): void {
-    this.subProduct.unsubscribe();
+    if (this.subProduct) this.subProduct.unsubscribe();
   }
+
+  addToCart() {
+    if (this.amountToAdd < 1) {
+      this.amountToAdd = 1;
+    }
+    this.service.addToCart(this.productDetails.productId, this.amountToAdd);
+    console.log(this.service.activeShoppingCartData);
+  }
+
+  removeFromCart() {}
 }

@@ -3,7 +3,15 @@
     <div class="name">
       <h2>{{ productDetails.name }}</h2>
     </div>
-    <div class="rarity">{{ productDetails.rarity }}</div>
+    <ng-container *ngFor="let rarity of rarityCheck; let i = index">
+      <div
+        class="rarity"
+        *ngIf="rarity == productDetails.rarity"
+        [ngStyle]="{ color: rarityColors[i] }"
+      >
+        {{ productDetails.rarity }}
+      </div>
+    </ng-container>
     <div class="type">{{ productDetails.type }}</div>
     <div class="description">{{ productDetails.description }}</div>
     <div class="image"><img src="{{ productDetails.imgLink }}" /></div>
@@ -11,4 +19,7 @@
   <button [routerLink]="['/products']" class="btn btn-primary btn-back">
     Back
   </button>
+  <input type="number" class="form-control" [(ngModel)]="this.amountToAdd" />
+  <button class="btn btn-primary btn-add" (click)="addToCart()">Add</button>
+  <button class="btn btn-danger btn-remove">Remove All</button>
 </body>

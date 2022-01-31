@@ -6,3 +6,9 @@ export class ProductShoppingCart {
   amount!: number;
   shoppingCartId!: number;
 }
+
+export class ProductShoppingCartToPost {
+  product!: Product;
+  amount!: number;
+  shoppingCartId!: number;
+}

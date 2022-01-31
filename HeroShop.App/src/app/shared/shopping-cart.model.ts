@@ -1,4 +1,7 @@
-import { ProductShoppingCart } from './product-shopping-cart.model';
+import {
+  ProductShoppingCart,
+  ProductShoppingCartToPost,
+} from './product-shopping-cart.model';
 
 export class ShoppingCart {
   shoppingCartId?: number = 0;
@@ -6,4 +9,9 @@ export class ShoppingCart {
   userId!: number;
   orderPlaced?: Date = new Date(); //este Date é diferente do DateTime do c# e não dá para ser null
   productsShoppingCart?: ProductShoppingCart[] = [];
+}
+
+export class ShoppingCartToPost {
+  userId!: number;
+  productsShoppingCart?: ProductShoppingCartToPost[] = [];
 }

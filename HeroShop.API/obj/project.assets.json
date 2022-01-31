@@ -9619,19 +9619,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lcspa\\.nuget\\packages\\": {}
+    "C:\\Users\\lcspa\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lcspa\\Desktop\\Curso IPN\\FullStack\\HeroShop\\HeroShop.API\\HeroShop.API.csproj",
+      "projectUniqueName": "C:\\Users\\lcspa\\Desktop\\Projeto FullStack\\HeroShop\\HeroShop.API\\HeroShop.API.csproj",
       "projectName": "HeroShop.API",
-      "projectPath": "C:\\Users\\lcspa\\Desktop\\Curso IPN\\FullStack\\HeroShop\\HeroShop.API\\HeroShop.API.csproj",
+      "projectPath": "C:\\Users\\lcspa\\Desktop\\Projeto FullStack\\HeroShop\\HeroShop.API\\HeroShop.API.csproj",
       "packagesPath": "C:\\Users\\lcspa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lcspa\\Desktop\\Curso IPN\\FullStack\\HeroShop\\HeroShop.API\\obj\\",
+      "outputPath": "C:\\Users\\lcspa\\Desktop\\Projeto FullStack\\HeroShop\\HeroShop.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\lcspa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9698,7 +9703,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
