@@ -148,7 +148,7 @@ export class DbCallsService {
   }
 
   isInCart(prodId: number): boolean {
-    if (this.activeShoppingCartData.productsShoppingCart == []) {
+    if (this.activeShoppingCartData.productsShoppingCart?.length == 0) {
       return false;
     }
 
@@ -158,8 +158,18 @@ export class DbCallsService {
         itExists = true;
       }
     });
-
+    console.log(itExists);
     return itExists;
+  }
+
+  howManyInCart(prodId: number): number {
+    let amount = 0;
+    this.activeShoppingCartData.productsShoppingCart!.forEach((element) => {
+      if (element.product.productId == prodId) {
+        amount = element.amount;
+      }
+    });
+    return amount;
   }
 
   calculateTotal(shoppingCart: ShoppingCartToPost): number {
@@ -172,18 +182,24 @@ export class DbCallsService {
     return total;
   }
 
-  addToCart(prodId: number, amount: number) {
-    if (!this.isInCart) {
-    }
-
-    this.activeShoppingCartData.productsShoppingCart!.forEach((element) => {
-      if (element.product.productId == prodId) {
-        element.amount += amount;
-        if (element.amount <= 0) {
-          this.removeFromCart(prodId);
+  addToCart(product: Product, amount: number) {
+    if (!this.isInCart(product.productId)) {
+      let newProd: ProductShoppingCartToPost = new ProductShoppingCartToPost();
+      newProd.amount = amount;
+      newProd.product = product;
+      newProd.shoppingCartId = 0;
+      let size = this.activeShoppingCartData.productsShoppingCart!.length;
+      this.activeShoppingCartData.productsShoppingCart!.push(newProd);
+    } else {
+      this.activeShoppingCartData.productsShoppingCart!.forEach((element) => {
+        if (element.product.productId == product.productId) {
+          element.amount += amount;
+          if (element.amount <= 0) {
+            this.removeFromCart(product.productId);
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   removeFromCart(prodId: number) {

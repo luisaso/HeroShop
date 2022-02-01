@@ -33,20 +33,23 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: (res) => {
           if (res != null) {
             this.service.activeUserData = res;
-            this.loggedIn();
+            this.loggedIn(res.userId!);
           }
         },
       });
   }
 
-  loggedIn() {
-    let userId: string = '' + this.service.activeUserData.userId;
-    this.subShopCart = this.service.getShoppingCart(userId).subscribe((res) => {
-      next: {
-        //this.service.activeShoppingCartData = res;
-        this.router.navigate(['/products']);
-      }
-    });
+  loggedIn(userId: number) {
+    this.service.createNewTemporaryCart(userId);
+    this.router.navigate(['/products']);
+    console.log(this.service.activeShoppingCartData);
+    // let userId: string = '' + this.service.activeUserData.userId;
+    // this.subShopCart = this.service.getShoppingCart(userId).subscribe((res) => {
+    //   next: {
+    //     //this.service.activeShoppingCartData = res;
+    //     this.router.navigate(['/products']);
+    //   }
+    // });
   }
 
   saveToCreateUser() {
@@ -57,6 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.service.activeUserData = res;
           this.service.createNewTemporaryCart(res.userId!);
           this.router.navigate(['/user/', this.service.activeUserData.userId]);
+          console.log(this.service.activeShoppingCartData);
         }
       });
   }

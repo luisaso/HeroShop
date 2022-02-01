@@ -33,9 +33,23 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     if (this.amountToAdd < 1) {
       this.amountToAdd = 1;
     }
-    this.service.addToCart(this.productDetails.productId, this.amountToAdd);
+    this.service.addToCart(this.productDetails, this.amountToAdd);
     console.log(this.service.activeShoppingCartData);
   }
 
-  removeFromCart() {}
+  removeFromCart() {
+    this.service.removeFromCart(this.productDetails.productId);
+  }
+
+  isInCart(): boolean {
+    return this.service.isInCart(this.productDetails.productId);
+  }
+
+  howManyInCart(): number {
+    return this.service.howManyInCart(this.productDetails.productId);
+  }
+
+  isLoggedIn(): boolean {
+    return this.service.isLoggedIn();
+  }
 }

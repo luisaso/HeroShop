@@ -12,10 +12,20 @@
 
     <tbody>
       <tr
-        *ngFor="let product of products"
-        [routerLink]="['/products', product.productId]"
+        *ngFor="let product of products; let i = index"
+        (click)="goToProductPage(product.productId)"
       >
-        <td>{{ product.name }}</td>
+        <td>
+          {{ product.name
+          }}<button
+            class="btn btn-danger btn-sm btn-remove exception"
+            (click)="$event.stopPropagation(); removeFromCart(product)"
+            *ngIf="isInCart(product)"
+          >
+            Remove
+          </button>
+        </td>
+
         <td>{{ product.type }}</td>
         <!-- SADGE THAT THIS CAN'T WORK :'( -->
         <!-- <ng-container
@@ -35,6 +45,9 @@
           [ngStyle]="{ color: rarityColors[0] }"
         >
           {{ product.rarity }}
+          <div class="in-cart-info" *ngIf="isInCart(product)">
+            {{ howManyInCart(product) }} in Cart
+          </div>
         </td>
         <td
           class="rarity"
@@ -42,6 +55,9 @@
           [ngStyle]="{ color: rarityColors[1] }"
         >
           {{ product.rarity }}
+          <div class="in-cart-info" *ngIf="isInCart(product)">
+            {{ howManyInCart(product) }} in Cart
+          </div>
         </td>
         <td
           class="rarity"
@@ -49,6 +65,9 @@
           [ngStyle]="{ color: rarityColors[2] }"
         >
           {{ product.rarity }}
+          <div class="in-cart-info" *ngIf="isInCart(product)">
+            {{ howManyInCart(product) }} in Cart
+          </div>
         </td>
         <td
           class="rarity"
@@ -56,6 +75,9 @@
           [ngStyle]="{ color: rarityColors[3] }"
         >
           {{ product.rarity }}
+          <div class="in-cart-info" *ngIf="isInCart(product)">
+            {{ howManyInCart(product) }} in Cart
+          </div>
         </td>
         <td
           class="rarity"
@@ -63,8 +85,31 @@
           [ngStyle]="{ color: rarityColors[4] }"
         >
           {{ product.rarity }}
+          <div class="in-cart-info" *ngIf="isInCart(product)">
+            {{ howManyInCart(product) }} in Cart
+          </div>
         </td>
-        <td>{{ product.price }}</td>
+        <td>
+          {{ product.price }}
+          <input
+            type="number"
+            class="form-control amount-selector exception"
+            min="1"
+            [(ngModel)]="this.amountToAdd[product.productId]"
+            (click)="$event.stopPropagation()"
+            *ngIf="isLoggedIn()"
+          />
+          <button
+            class="btn btn-primary btn-sm btn-add"
+            (click)="
+              $event.stopPropagation();
+              addToCart(product, this.amountToAdd[product.productId])
+            "
+            *ngIf="isLoggedIn()"
+          >
+            Add
+          </button>
+        </td>
         <td>
           <img src="{{ product.imgLink }}" alt="{{ product.name }}" />
         </td>

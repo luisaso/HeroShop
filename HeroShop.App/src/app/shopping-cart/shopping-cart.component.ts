@@ -49,12 +49,12 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   addOne(product: ProductShoppingCartToPost) {
-    this.service.addToCart(product.product.productId, 1);
+    this.service.addToCart(product.product, 1);
     this.activeShoppingCart = this.service.activeShoppingCartData;
   }
 
   subOne(product: ProductShoppingCartToPost) {
-    this.service.addToCart(product.product.productId, -1);
+    this.service.addToCart(product.product, -1);
     this.activeShoppingCart = this.service.activeShoppingCartData;
   }
 
