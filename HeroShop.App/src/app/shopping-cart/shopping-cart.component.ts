@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { DbCallsService } from '../shared/db-calls.service';
 import { ProductShoppingCartToPost } from '../shared/product-shopping-cart.model';
@@ -11,7 +12,11 @@ import { ShoppingCartToPost } from '../shared/shopping-cart.model';
   styleUrls: ['./shopping-cart.component.css'],
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
-  constructor(private service: DbCallsService, private router: Router) {}
+  constructor(
+    private service: DbCallsService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   activeShoppingCart!: ShoppingCartToPost;
   totalPrice: number = 0;
@@ -27,7 +32,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   calculateTotalPrice(): number {
-    console.log(this.activeShoppingCart);
     this.activeShoppingCart.productsShoppingCart!.forEach((element) => {
       this.totalPrice += element.product.price * element.amount;
     });
@@ -41,8 +45,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .postNewOrder(this.service.activeShoppingCartData)
       .subscribe((res) => {
         next: {
-          console.log('Order Created');
           this.service.activeShoppingCartData = new ShoppingCartToPost();
+          this.toastr.success('Order Placed');
           this.router.navigate(['/products']);
         }
       });
@@ -51,21 +55,25 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   addOne(product: ProductShoppingCartToPost) {
     this.service.addToCart(product.product, 1);
     this.activeShoppingCart = this.service.activeShoppingCartData;
+    this.toastr.success('Added to Cart');
   }
 
   subOne(product: ProductShoppingCartToPost) {
     this.service.addToCart(product.product, -1);
     this.activeShoppingCart = this.service.activeShoppingCartData;
+    this.toastr.warning('Removed from Cart');
   }
 
   removeOne(product: ProductShoppingCartToPost) {
     this.service.removeFromCart(product.product.productId);
     this.activeShoppingCart = this.service.activeShoppingCartData;
+    this.toastr.warning('Products removed from Cart');
   }
 
   removeAll() {
     this.service.removeAllFromCart();
     this.activeShoppingCart = this.service.activeShoppingCartData;
+    this.toastr.warning('Emptied Cart');
   }
 
   trackItem(index: number, prod: ProductShoppingCartToPost) {

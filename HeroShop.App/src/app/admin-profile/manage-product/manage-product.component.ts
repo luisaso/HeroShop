@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { DbCallsService } from 'src/app/shared/db-calls.service';
 import { Product } from 'src/app/shared/product.model';
@@ -13,7 +14,8 @@ export class ManageProductComponent implements OnInit, OnDestroy {
   constructor(
     private service: DbCallsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   auxTypes: string[] = [
@@ -57,7 +59,7 @@ export class ManageProductComponent implements OnInit, OnDestroy {
       .postNewProduct(this.newProduct)
       .subscribe({
         next: (res) => {
-          console.log('PRODUCT CREATED');
+          this.toastr.success('New Product Created');
         },
       });
   }
@@ -67,8 +69,7 @@ export class ManageProductComponent implements OnInit, OnDestroy {
       .updateProduct(this.selectedProduct)
       .subscribe({
         next: (res) => {
-          //Popup
-          console.log('Product UPDATED');
+          this.toastr.success('Product Updated');
         },
       });
   }
@@ -78,15 +79,10 @@ export class ManageProductComponent implements OnInit, OnDestroy {
       .deleteProduct(this.selectedProduct)
       .subscribe({
         next: (res) => {
-          //Popup
-          console.log('Product deleted');
+          this.toastr.success('Product Deleted');
           this.router.navigate(['/admin']);
         },
       });
-  }
-
-  onProductSelection() {
-    console.log(this.selectedProduct);
   }
 
   selectManagePage(): string {
@@ -96,7 +92,6 @@ export class ManageProductComponent implements OnInit, OnDestroy {
       this.subAllProduct = this.service.getAllProducts().subscribe({
         next: (prods) => {
           this.allProducts = prods;
-          console.log('Products Loaded');
         },
       });
     }

@@ -10,6 +10,7 @@
   background-size: cover;
   position: relative;
   height: 10vh;
+  cursor: pointer;
 }
 
 .shop-title {

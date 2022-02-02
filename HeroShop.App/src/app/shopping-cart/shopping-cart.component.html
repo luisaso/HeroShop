@@ -58,12 +58,20 @@
         </button>
       </div>
       <div class="delete-all">
-        <button class="btn btn-danger btn-delete-all" (click)="removeAll()">
+        <button
+          class="btn btn-danger btn-delete-all"
+          (click)="removeAll()"
+          *ngIf="!(this.activeShoppingCart.productsShoppingCart!.length == 0)"
+        >
           Delete All
         </button>
       </div>
       <div class="buy">
-        <button class="btn btn-primary btn-buy" (click)="placeOrder()">
+        <button
+          class="btn btn-primary btn-buy"
+          (click)="placeOrder()"
+          [disabled]="this.activeShoppingCart.productsShoppingCart!.length == 0"
+        >
           Buy
         </button>
       </div>

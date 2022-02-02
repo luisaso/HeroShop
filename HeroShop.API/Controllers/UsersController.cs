@@ -16,13 +16,13 @@ namespace HeroShop.API.Controllers
             _context = context;
         }
 
-        // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            List<User> users = await _context.Users.ToListAsync();
-            return Ok(users);
-        }
+        //// GET: api/Users
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        //{
+        //    List<User> users = await _context.Users.ToListAsync();
+        //    return Ok(users);
+        //}
 
         // GET: api/Users --- to validation
         [HttpGet("{username}/{password}")]

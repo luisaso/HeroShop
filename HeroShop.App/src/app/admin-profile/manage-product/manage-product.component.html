@@ -78,7 +78,18 @@
         </div>
       </div>
       <div class="add">
-        <button class="btn btn-primary btn-add" (click)="addProduct()">
+        <button
+          class="btn btn-primary btn-add"
+          (click)="addProduct()"
+          [disabled]="
+            !this.newProduct.name ||
+            !this.newProduct.price ||
+            !this.newProduct.rarity ||
+            !this.newProduct.type ||
+            !this.newProduct.imgLink ||
+            !this.newProduct.description
+          "
+        >
           Add Product
         </button>
       </div>
@@ -99,7 +110,6 @@
             class="form-control"
             id="selectProduct"
             [(ngModel)]="this.selectedProduct"
-            (change)="onProductSelection()"
           >
             <option
               *ngFor="let product of this.allProducts"
@@ -185,12 +195,34 @@
         </div>
       </div>
       <div class="edit" *ngIf="selectManagePage() == 'edit'">
-        <button class="btn btn-primary btn-edit" (click)="editProduct()">
+        <button
+          class="btn btn-primary btn-edit"
+          (click)="editProduct()"
+          [disabled]="
+            !this.selectedProduct.name ||
+            !this.selectedProduct.price ||
+            !this.selectedProduct.rarity ||
+            !this.selectedProduct.type ||
+            !this.selectedProduct.imgLink ||
+            !this.selectedProduct.description
+          "
+        >
           Save Changes
         </button>
       </div>
       <div class="delete" *ngIf="selectManagePage() == 'delete'">
-        <button class="btn btn-primary btn-delete" (click)="deleteProduct()">
+        <button
+          class="btn btn-primary btn-delete"
+          (click)="deleteProduct()"
+          [disabled]="
+            !this.selectedProduct.name ||
+            !this.selectedProduct.price ||
+            !this.selectedProduct.rarity ||
+            !this.selectedProduct.type ||
+            !this.selectedProduct.imgLink ||
+            !this.selectedProduct.description
+          "
+        >
           Delete Product
         </button>
       </div>

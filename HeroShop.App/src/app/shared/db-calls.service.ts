@@ -4,10 +4,7 @@ import { User } from './user.model';
 import { Product } from './product.model';
 import { ShoppingCart, ShoppingCartToPost } from './shopping-cart.model';
 import { Observable } from 'rxjs';
-import {
-  ProductShoppingCart,
-  ProductShoppingCartToPost,
-} from './product-shopping-cart.model';
+import { ProductShoppingCartToPost } from './product-shopping-cart.model';
 
 @Injectable({
   providedIn: 'root',
@@ -45,21 +42,6 @@ export class DbCallsService {
     return this.http.get<Product>(actualUrl);
   }
 
-  getUsers(): Observable<User[]> {
-    let actualUrl = this.baseURL + '/Users/';
-    return this.http.get<User[]>(actualUrl);
-  }
-
-  getUser(userId: string): Observable<User> {
-    let actualUrl = this.baseURL + '/Users/' + userId;
-    return this.http.get<User>(actualUrl);
-  }
-
-  getShoppingCart(userId: string): Observable<ShoppingCart> {
-    let actualUrl = this.baseURL + '/Users/' + userId + '/ShoppingCart';
-    return this.http.get<ShoppingCart>(actualUrl);
-  }
-
   postNewUser(username: string, password: string): Observable<User> {
     let actualUrl = this.baseURL + '/Users/';
     let newUser: User = new User();
@@ -72,16 +54,6 @@ export class DbCallsService {
     });
   }
 
-  // postNewCart(userId: number): Observable<ShoppingCart> {
-  //   let actualUrl = this.baseURL + '/Users/';
-  //   let newCart = this.activeShoppingCartData;
-  //   newCart.userId = userId;
-  //   const headers = { 'content-type': 'application/json' };
-  //   return this.http.post<ShoppingCart>(actualUrl, JSON.stringify(newCart), {
-  //     headers: headers,
-  //   });
-  // }
-
   postNewProduct(newProduct: Product): Observable<Product> {
     let actualUrl = this.baseURL + '/Products';
     const headers = { 'content-type': 'application/json' };
@@ -92,7 +64,6 @@ export class DbCallsService {
   }
 
   postNewOrder(newOrder: ShoppingCartToPost): Observable<ShoppingCart> {
-    console.log(newOrder);
     let actualUrl =
       this.baseURL + '/Users/' + newOrder.userId + '/ShoppingCart';
     const headers = { 'content-type': 'application/json' };
@@ -129,8 +100,8 @@ export class DbCallsService {
   }
 
   verifyUserLogin(username: string, password: string): Observable<User> {
-    let actualUrl = this.baseURL + '/Users/' + username + '/' + password;
-    return this.http.get<User>(actualUrl);
+    let actualUrl = this.baseURL + '/Users/' + username + '/' + password; //EXTREMAMENTE ERRADO!!!!!!! enviar num POST para que o body possa
+    return this.http.get<User>(actualUrl); //ser encriptado. No get apenas vai um header não encriptado
   }
 
   isLoggedIn(): boolean {
@@ -158,7 +129,6 @@ export class DbCallsService {
         itExists = true;
       }
     });
-    console.log(itExists);
     return itExists;
   }
 
@@ -203,16 +173,6 @@ export class DbCallsService {
   }
 
   removeFromCart(prodId: number) {
-    this.activeShoppingCartData.productsShoppingCart!.forEach(
-      (element, index) => {
-        if (element.product.productId == prodId) {
-          this.activeShoppingCartData.productsShoppingCart!.splice(index, 1);
-        }
-      }
-    );
-  }
-
-  removeFromCartByProd(prodId: number) {
     this.activeShoppingCartData.productsShoppingCart!.forEach(
       (element, index) => {
         if (element.product.productId == prodId) {

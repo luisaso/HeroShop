@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { subscribeOn, Subscriber, Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { DbCallsService } from '../shared/db-calls.service';
 import { User } from '../shared/user.model';
 
@@ -9,7 +10,7 @@ import { User } from '../shared/user.model';
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
-  constructor(private service: DbCallsService) {}
+  constructor(private service: DbCallsService, private toastr: ToastrService) {}
 
   auxRaces = ['Human', 'Orc', 'Elf', 'Dwarf', 'God', 'Other'];
   auxGenders = ['Male', 'Female', 'Other'];
@@ -27,8 +28,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   saveChanges() {
     this.subUpdateUser = this.service.updateUser(this.temporaryUser).subscribe({
       next: (res) => {
-        //Popup
-        console.log('USER UPDATED');
+        this.toastr.success('Changes Saved');
       },
     });
   }

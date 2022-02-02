@@ -27,18 +27,6 @@
         </td>
 
         <td>{{ product.type }}</td>
-        <!-- SADGE THAT THIS CAN'T WORK :'( -->
-        <!-- <ng-container
-          *ngFor="let rarity of rarityCheck; let i = index"
-          [attr.data-index]="i"
-        >
-          <td
-            *ngIf="product.rarity == rarityCheck[i]"
-            [ngStyle]="{ color: rarityColors[i] }"
-          >
-            {{ product.rarity }}
-          </td>
-        </ng-container> -->
         <td
           class="rarity"
           *ngIf="product.rarity == rarityCheck[0]"
@@ -106,6 +94,7 @@
               addToCart(product, this.amountToAdd[product.productId])
             "
             *ngIf="isLoggedIn()"
+            [disabled]="!this.amountToAdd[product.productId]"
           >
             Add
           </button>

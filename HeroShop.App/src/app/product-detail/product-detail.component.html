@@ -34,6 +34,7 @@
     class="btn btn-primary btn-add"
     (click)="addToCart()"
     *ngIf="isLoggedIn()"
+    [disabled]="!this.amountToAdd"
   >
     Add
   </button>

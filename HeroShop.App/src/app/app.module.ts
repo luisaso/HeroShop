@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AuthGuard } from './shared/auth.guard';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot([
       {
         path: 'products',
@@ -48,14 +51,17 @@ import { WelcomeComponent } from './welcome/welcome.component';
       {
         path: 'user/:id',
         component: UserProfileComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'user/:id/shoppingcart',
         component: ShoppingCartComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'admin',
         component: AdminProfileComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'admin/manageproduct',

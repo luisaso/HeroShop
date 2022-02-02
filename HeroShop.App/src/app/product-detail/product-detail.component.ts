@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { DbCallsService } from '../shared/db-calls.service';
 import { Product } from '../shared/product.model';
@@ -10,7 +11,11 @@ import { Product } from '../shared/product.model';
   styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
-  constructor(private service: DbCallsService, private route: ActivatedRoute) {}
+  constructor(
+    private service: DbCallsService,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
+  ) {}
 
   subProduct!: Subscription;
   productDetails: Product = new Product();
@@ -30,15 +35,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   addToCart() {
+    this.amountToAdd = Math.trunc(this.amountToAdd);
     if (this.amountToAdd < 1) {
       this.amountToAdd = 1;
     }
     this.service.addToCart(this.productDetails, this.amountToAdd);
-    console.log(this.service.activeShoppingCartData);
+    this.toastr.success('Added to Cart');
   }
 
   removeFromCart() {
     this.service.removeFromCart(this.productDetails.productId);
+    this.toastr.warning('Product removed from Cart');
   }
 
   isInCart(): boolean {

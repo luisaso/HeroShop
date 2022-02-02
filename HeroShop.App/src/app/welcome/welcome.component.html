@@ -1,10 +1,11 @@
 <div class="all">
-  <header>
+  <header (click)="goBack()">
     <div class="jumbotron py-6 text-center banner">
       <h1 class="shop-title">My Hero Shop</h1>
       <button
         class="btn btn-secondary btn-login"
         [routerLink]="isLoggedIn() ? ['/user', getUserId()] : ['/login']"
+        (click)="$event.stopPropagation()"
       >
         {{ isLoggedIn() ? "Profile" : "Login" }}
       </button>
@@ -12,7 +13,7 @@
         *ngIf="isLoggedIn()"
         class="btn btn-secondary btn-logout"
         [routerLink]="['/products']"
-        (click)="onLogout()"
+        (click)="$event.stopPropagation(); onLogout()"
       >
         Logout
       </button>
@@ -22,6 +23,7 @@
         [routerLink]="
           isLoggedIn() ? ['/user', getUserId(), 'shoppingcart'] : ['/login']
         "
+        (click)="$event.stopPropagation()"
       >
         Shopping Cart
       </button>
@@ -29,6 +31,7 @@
         *ngIf="isLoggedIn() && isAdmin()"
         class="btn btn-secondary btn-shop-cart"
         [routerLink]="['/admin']"
+        (click)="$event.stopPropagation()"
       >
         Admin Den
       </button>

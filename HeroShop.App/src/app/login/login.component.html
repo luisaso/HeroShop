@@ -1,36 +1,42 @@
 <body class="container">
   <div class="header-login">
     <h3>Login</h3>
-    <div class="username">
-      <div class="input-group mb-2">
-        <span class="input-group-text" id="username">Username</span>
-        <input
-          type="text"
-          class="form-control"
-          id="username"
-          [(ngModel)]="username"
-        />
-      </div>
+    <div class="input-group mb-2 username">
+      <span class="input-group-text" id="username">Username</span>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        [(ngModel)]="username"
+        required
+      />
     </div>
 
-    <div class="password">
-      <div class="input-group mb-2">
-        <span class="input-group-text" id="password">Password</span>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          [(ngModel)]="password"
-        />
-      </div>
+    <div class="input-group mb-2 password">
+      <span class="input-group-text" id="password">Password</span>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        [(ngModel)]="password"
+        required
+      />
     </div>
-    <button class="btn btn-primary btn-login" (click)="verifyLogin()">
+    <button
+      class="btn btn-primary btn-login"
+      (click)="verifyLogin()"
+      [disabled]="!username || !password"
+    >
       Login
     </button>
     <button class="btn btn-primary btn-back" [routerLink]="['/products']">
       Back
     </button>
-    <button class="btn btn-primary btn-create" (click)="saveToCreateUser()">
+    <button
+      class="btn btn-primary btn-create"
+      (click)="saveToCreateUser()"
+      [disabled]="!username || !password"
+    >
       Create
     </button>
   </div>

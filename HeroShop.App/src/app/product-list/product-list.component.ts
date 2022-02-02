@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { DbCallsService } from '../shared/db-calls.service';
 import { Product } from '../shared/product.model';
@@ -10,7 +11,11 @@ import { Product } from '../shared/product.model';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  constructor(private service: DbCallsService, private router: Router) {}
+  constructor(
+    private service: DbCallsService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   rarityCheck: string[] = this.service.rarityCheck;
   rarityColors: string[] = this.service.rarityColors;
@@ -26,7 +31,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subProducts.unsubscribe();
+    if (this.subProducts) this.subProducts.unsubscribe();
   }
 
   goToProductPage(prodId: number) {
@@ -34,15 +39,17 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   addToCart(prod: Product, amountToAdd: number) {
-    console.log(amountToAdd);
+    amountToAdd = Math.trunc(amountToAdd);
     if (amountToAdd < 1 || !amountToAdd) {
       amountToAdd = 1;
     }
     this.service.addToCart(prod, amountToAdd);
+    this.toastr.success('Added to Cart');
   }
 
   removeFromCart(prod: Product) {
     this.service.removeFromCart(prod.productId);
+    this.toastr.warning('Product removed from Cart');
   }
 
   isInCart(prod: Product): boolean {
@@ -57,5 +64,3 @@ export class ProductListComponent implements OnInit, OnDestroy {
     return this.service.isLoggedIn();
   }
 }
-
-// [routerLink]="['/products', product.productId]"

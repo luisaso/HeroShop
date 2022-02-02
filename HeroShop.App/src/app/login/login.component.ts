@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { DbCallsService } from '../shared/db-calls.service';
 
@@ -9,7 +10,11 @@ import { DbCallsService } from '../shared/db-calls.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  constructor(private service: DbCallsService, private router: Router) {}
+  constructor(
+    private service: DbCallsService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   username!: string;
   password!: string;
@@ -23,6 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subLogin) this.subLogin.unsubscribe();
     if (this.subCreateUser) this.subCreateUser.unsubscribe();
+    if (this.subCreateCart) this.subCreateCart.unsubscribe();
     if (this.subShopCart) this.subShopCart.unsubscribe();
   }
 
@@ -34,6 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (res != null) {
             this.service.activeUserData = res;
             this.loggedIn(res.userId!);
+          } else {
+            this.toastr.error('Username or password incorrect');
           }
         },
       });
@@ -42,14 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loggedIn(userId: number) {
     this.service.createNewTemporaryCart(userId);
     this.router.navigate(['/products']);
-    console.log(this.service.activeShoppingCartData);
-    // let userId: string = '' + this.service.activeUserData.userId;
-    // this.subShopCart = this.service.getShoppingCart(userId).subscribe((res) => {
-    //   next: {
-    //     //this.service.activeShoppingCartData = res;
-    //     this.router.navigate(['/products']);
-    //   }
-    // });
+    this.toastr.success('Logged In');
   }
 
   saveToCreateUser() {
@@ -59,8 +60,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: {
           this.service.activeUserData = res;
           this.service.createNewTemporaryCart(res.userId!);
+          this.toastr.success('New Account Created');
           this.router.navigate(['/user/', this.service.activeUserData.userId]);
-          console.log(this.service.activeShoppingCartData);
         }
       });
   }

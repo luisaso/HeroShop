@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DbCallsService } from '../shared/db-calls.service';
 import { ShoppingCartToPost } from '../shared/shopping-cart.model';
 import { User } from '../shared/user.model';
@@ -9,7 +11,11 @@ import { User } from '../shared/user.model';
   styleUrls: ['./welcome.component.css'],
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
-  constructor(private service: DbCallsService) {}
+  constructor(
+    private service: DbCallsService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   user!: User;
   shoppingCart!: ShoppingCartToPost;
@@ -35,5 +41,10 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.service.logOut();
+    this.toastr.success('Logged Out');
+  }
+
+  goBack() {
+    this.router.navigate(['/products']);
   }
 }
